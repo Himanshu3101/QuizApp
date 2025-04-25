@@ -1,6 +1,5 @@
 package com.example.quizapp.presentation.util
 
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 

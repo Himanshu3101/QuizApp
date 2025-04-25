@@ -25,7 +25,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.example.quizapp.R
 import com.example.quizapp.presentation.util.Dimens
 import com.example.quizapp.presentation.util.Dimens.SmallPadding
