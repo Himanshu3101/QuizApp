@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 class HomeScreenViewModel : ViewModel() {
 
-    private val _homeState = MutableStateFlow(StateHomeScreen())
+    private val _homeState = MutableStateFlow(DCStateHomeScreen())
     val homeState = _homeState
 
     fun onEvent(event : EventHomeScreen){

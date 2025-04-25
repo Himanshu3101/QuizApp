@@ -23,7 +23,7 @@ import com.example.quizapp.presentation.util.Dimens.SmallSpacerHeight
 @Preview
 @Composable
 fun PrevHome() {
-    HomeScreen(state = StateHomeScreen(),
+    HomeScreen(state = DCStateHomeScreen(),
         event = {})
 }
 
@@ -31,7 +31,7 @@ fun PrevHome() {
 
 @Composable
 fun HomeScreen(
-    state : StateHomeScreen,
+    state : DCStateHomeScreen,
     event : (EventHomeScreen) -> Unit
 ) {
     Column (
