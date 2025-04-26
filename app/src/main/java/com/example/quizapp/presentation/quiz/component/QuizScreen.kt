@@ -72,7 +72,7 @@ fun QuizScreen (
 
             Spacer(modifier = Modifier.height(LargeSpacerHeight))
 
-            TODO("Quiz (UI) Interface after the fetch data from APi")
+           // TODO("Quiz (UI) Interface after the fetch data from APi")
         }
     }
 }
