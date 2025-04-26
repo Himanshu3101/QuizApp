@@ -6,16 +6,11 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.quizapp.R
-import com.example.quizapp.presentation.home.HomeScreen
-import com.example.quizapp.presentation.home.HomeScreenViewModel
 import com.example.quizapp.presentation.nav_graph.SetNavGraph
 import com.example.quizapp.ui.theme.QuizAppTheme
 import dagger.hilt.android.AndroidEntryPoint
