@@ -11,7 +11,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.quizapp.presentation.home.HomeScreen
 import com.example.quizapp.presentation.home.HomeScreenViewModel
-import com.example.quizapp.presentation.quiz.component.QuizScreen
+import com.example.quizapp.presentation.quiz.QuizScreen
 
 @Composable
 fun SetNavGraph() {
