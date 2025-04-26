@@ -22,12 +22,14 @@ import com.example.quizapp.presentation.util.Dimens.MediumPadding
 import com.example.quizapp.presentation.util.Dimens.MediumSpacerHeight
 import com.example.quizapp.presentation.util.Dimens.SmallSpacerHeight
 
+/*
 @Preview
 @Composable
 fun PrevHome() {
     HomeScreen(state = DCStateHomeScreen(),
         event = {})
 }
+*/
 
 
 
