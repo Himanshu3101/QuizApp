@@ -13,11 +13,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.colorResource
 import com.example.quizapp.R
 import com.example.quizapp.presentation.common.QuizAppBar
+import com.example.quizapp.presentation.util.Constants
 import com.example.quizapp.presentation.util.Dimens
 import com.example.quizapp.presentation.util.Dimens.LargeSpacerHeight
 import com.example.quizapp.presentation.util.Dimens.MediumCornerRadius
@@ -31,7 +33,26 @@ fun QuizScreen (
     numOfQuiz: Int,
     quizCategory: String,
     quizDifficulty: String,
+    quizType : String,
+    event : (EventQuizScreen) -> Unit,
+    state : StateQuizScreen
 ) {
+
+    LaunchedEffect(key1 = Unit) {
+        val difficulty = when (quizDifficulty){
+            "Medium" -> "medium"
+            "Hard" -> "hard"
+            else -> "easy"
+
+        }
+        val type = when(quizType){
+            "Multiple Choice" -> "multiple"
+            else -> "boolean"
+        }
+
+        event(EventQuizScreen.GetQuizzes(numOfQuiz, Constants.categoriesMap[quizCategory]!!, difficulty, type))
+    }
+
     Column(
         modifier = Modifier.fillMaxSize()
     ){

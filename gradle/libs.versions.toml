@@ -5,9 +5,9 @@ foundation = "1.8.0"
 lottieCompose = "6.0.0"
 retrofitVersion = "2.9.0"
 coreSplashscreen = "1.0.1"
-hiltAndroid = "2.49"
+hiltAndroid = "2.55"
 hiltNavigationCompose = "1.2.0"
-kotlin = "2.0.0"
+
 coreKtx = "1.16.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
@@ -16,17 +16,12 @@ lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.10.1"
 composeBom = "2024.04.01"
 navigationCompose = "2.8.9"
-ksp = "2.0.20-1.0.25"
-#composeCompiler = "1.5.4"
+kotlin = "2.1.20"
+ksp = "2.1.20-1.0.31"
+
 
 [libraries]
-
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
-
-
-
-
-
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -64,7 +59,6 @@ lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-#kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 
 #hilt
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }

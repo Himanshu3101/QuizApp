@@ -12,6 +12,7 @@ import androidx.navigation.navArgument
 import com.example.quizapp.presentation.home.HomeScreen
 import com.example.quizapp.presentation.home.HomeScreenViewModel
 import com.example.quizapp.presentation.quiz.QuizScreen
+import com.example.quizapp.presentation.quiz.QuizViewModel
 
 @Composable
 fun SetNavGraph() {
@@ -44,7 +45,17 @@ fun SetNavGraph() {
             val difficult = it.arguments?.getString(ARG_KEY_QUIZ_DIFFICULTY)
             val type = it.arguments?.getString(ARG_KEY_QUIZ_TYPE)
 
-            QuizScreen(numOfQuiz = numOfQuizzes!!, quizCategory = category!!, quizDifficulty = difficult!!)
+            val quizViewModel : QuizViewModel = hiltViewModel()
+            val state by quizViewModel.quizList.collectAsState()
+
+            QuizScreen(
+                numOfQuiz = numOfQuizzes!!,
+                quizCategory = category!!,
+                quizDifficulty = difficult!!,
+                quizType = type!!,
+                event = quizViewModel::onEvent, //Or use Old version -> { quizViewModel.onEvent(it) }
+                state = state
+            )
         }
     }
 }

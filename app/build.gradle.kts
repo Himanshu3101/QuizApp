@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-//    alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
@@ -46,9 +45,6 @@ android {
     buildFeatures {
         compose = true
     }
-    /*composeOptions{
-        kotlinCompilerExtensionVersion= libs.versions.composeCompiler.get()
-    }*/
 }
 
 dependencies {
@@ -74,7 +70,6 @@ dependencies {
     implementation (libs.androidx.core.splashscreen)
 
     //Compose Navigation
-//    val nav_version = "2.7.7"
     implementation (libs.androidx.navigation.compose)
 
     //Dagger Hilt
