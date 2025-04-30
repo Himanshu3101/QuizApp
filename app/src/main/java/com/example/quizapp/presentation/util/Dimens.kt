@@ -1,10 +1,12 @@
 package com.example.quizapp.presentation.util
 
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 object Dimens {
 
+    val SmallBorderWidth = 5.dp
     val SmallTextSize = 16.sp
     val MediumTextSize = 20.sp
     val LargeTextSize = 40.sp

@@ -1,6 +1,7 @@
 package com.example.quizapp.presentation.common
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,32 +14,43 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
 import com.example.quizapp.R
 import com.example.quizapp.presentation.util.Dimens
+import com.example.quizapp.presentation.util.Dimens.MediumTextSize
 
 @Composable
 fun ButtonBox(
+    modifier : Modifier = Modifier,
     text:String,
-    padding: Dp,
-    onButtonClick:() -> Unit
+    padding: Dp = Dimens.SmallPadding,
+    borderColor : Color =  colorResource(id = R.color.blue_grey),
+    containerColor : Color =  colorResource(id = R.color.blue_grey),
+    textColor: Color = colorResource(id = R.color.black),
+    fontSize : TextUnit = MediumTextSize,
+    fraction: Float = 1f,
+    onClick:() -> Unit
 ){
     Box(
        modifier = Modifier
            .padding(padding)
-           .clickable{onButtonClick()}
-           .fillMaxWidth()
+           .border(Dimens.SmallBorderWidth, borderColor, RoundedCornerShape(Dimens.LargeCornerRadius))
+           .clickable {onClick()}
+           .fillMaxWidth(fraction)
            .height(Dimens.MediumBoxHeight)
            .clip(RoundedCornerShape(Dimens.LargeCornerRadius))
-           .background(colorResource(R.color.blue_grey)),
+           .background(containerColor),
         contentAlignment = Alignment.Center
     ){
         Text(
             text = text,
             fontSize = Dimens.MediumTextSize,
-            style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.SemiBold)
+            style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.SemiBold),
+            color = textColor
         )
     }
 }

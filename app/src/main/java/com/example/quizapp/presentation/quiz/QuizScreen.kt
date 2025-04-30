@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -17,8 +18,11 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.tooling.preview.Preview
 import com.example.quizapp.R
+import com.example.quizapp.presentation.common.ButtonBox
 import com.example.quizapp.presentation.common.QuizAppBar
+import com.example.quizapp.presentation.quiz.component.QuizInterface
 import com.example.quizapp.presentation.util.Constants
 import com.example.quizapp.presentation.util.Dimens
 import com.example.quizapp.presentation.util.Dimens.LargeSpacerHeight
@@ -27,6 +31,18 @@ import com.example.quizapp.presentation.util.Dimens.MediumCornerRadius
 
 /*TODO("We can implement sharedViewModel logic here bcoz we need same data from home screen but here,
    we need only 3. So, we can use shared View Model but here we are passing data directly.")*/
+@Preview
+@Composable
+fun PrevQuiz(){
+    QuizScreen(
+        numOfQuiz = 10,
+        quizCategory = "General Knowledge",
+        quizDifficulty = "Medium",
+        quizType = "Multiple Choice",
+        event = {},
+        state = StateQuizScreen()
+    )
+}
 
 @Composable
 fun QuizScreen (
@@ -93,7 +109,42 @@ fun QuizScreen (
 
             Spacer(modifier = Modifier.height(LargeSpacerHeight))
 
-           // TODO("Quiz (UI) Interface after the fetch data from APi")
+            //QuizUI
+           QuizInterface(
+               modifier = Modifier.weight(1f),
+               onOptionSelected = {},
+               qNumber = 1
+           )
+
+            Row (
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = Dimens.MediumPadding)
+                    .navigationBarsPadding()
+            ){
+                ButtonBox(
+                    text = "Previous",
+                    padding = Dimens.SmallPadding,
+                    fraction = 0.43f,
+                    fontSize = Dimens.SmallTextSize
+
+                ) {
+
+                }
+
+                ButtonBox(
+                    text = "Next",
+                    padding = Dimens.SmallPadding,
+                    borderColor = colorResource(id = R.color.orange),
+                    containerColor = colorResource(id = R.color.dark_slate_blue),
+                    fraction = 1f,
+                    textColor = colorResource(id = R.color.white),
+                    fontSize = Dimens.SmallTextSize
+                ){
+
+                }
+
+            }
         }
     }
 }
