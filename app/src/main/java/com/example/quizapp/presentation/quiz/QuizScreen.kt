@@ -1,5 +1,6 @@
 package com.example.quizapp.presentation.quiz
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -23,6 +24,7 @@ import com.example.quizapp.R
 import com.example.quizapp.presentation.common.ButtonBox
 import com.example.quizapp.presentation.common.QuizAppBar
 import com.example.quizapp.presentation.quiz.component.QuizInterface
+import com.example.quizapp.presentation.quiz.component.ShimmerEffectQuizInterface
 import com.example.quizapp.presentation.util.Constants
 import com.example.quizapp.presentation.util.Dimens
 import com.example.quizapp.presentation.util.Dimens.LargeSpacerHeight
@@ -109,42 +111,66 @@ fun QuizScreen (
 
             Spacer(modifier = Modifier.height(LargeSpacerHeight))
 
-            //QuizUI
-           QuizInterface(
-               modifier = Modifier.weight(1f),
-               onOptionSelected = {},
-               qNumber = 1
-           )
+            //QuizUI Interface
 
-            Row (
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = Dimens.MediumPadding)
-                    .navigationBarsPadding()
-            ){
-                ButtonBox(
-                    text = "Previous",
-                    padding = Dimens.SmallPadding,
-                    fraction = 0.43f,
-                    fontSize = Dimens.SmallTextSize
+            if(quizFetched(state)){
 
-                ) {
-
+                for(i in state.quizState!!){
+                    Log.d("quizzes", i.toString())
                 }
+                QuizInterface(
+                    modifier = Modifier.weight(1f),
+                    onOptionSelected = {},
+                    qNumber = 1
+                )
 
-                ButtonBox(
-                    text = "Next",
-                    padding = Dimens.SmallPadding,
-                    borderColor = colorResource(id = R.color.orange),
-                    containerColor = colorResource(id = R.color.dark_slate_blue),
-                    fraction = 1f,
-                    textColor = colorResource(id = R.color.white),
-                    fontSize = Dimens.SmallTextSize
+                Row (
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = Dimens.MediumPadding)
+                        .navigationBarsPadding()
                 ){
+                    ButtonBox(
+                        text = "Previous",
+                        padding = Dimens.SmallPadding,
+                        fraction = 0.43f,
+                        fontSize = Dimens.SmallTextSize
+
+                    ) {
+
+                    }
+
+                    ButtonBox(
+                        text = "Next",
+                        padding = Dimens.SmallPadding,
+                        borderColor = colorResource(id = R.color.orange),
+                        containerColor = colorResource(id = R.color.dark_slate_blue),
+                        fraction = 1f,
+                        textColor = colorResource(id = R.color.white),
+                        fontSize = Dimens.SmallTextSize
+                    ){
+
+                    }
 
                 }
-
             }
+        }
+    }
+}
+
+@Composable
+fun quizFetched(state: StateQuizScreen): Boolean {
+    return when{
+        state.isLoading -> {
+            ShimmerEffectQuizInterface()
+            false
+        }
+        state.quizState?. isNotEmpty() == true ->{
+            true
+        }
+        else ->{
+            Text(text = state.error.toString(), color = colorResource(id = R.color.white))
+            false
         }
     }
 }

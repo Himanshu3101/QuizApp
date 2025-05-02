@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.quizapp.common.Resources
+import com.example.quizapp.domain.model.Quiz
 import com.example.quizapp.domain.usecases.GetQuizzesUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -45,10 +46,8 @@ class QuizViewModel @Inject constructor(private val getQuizzesUseCases: GetQuizz
                     }
 
                     is Resources.Success -> {
-                        for (quiz in resources.data!!) {
-                            Log.d("quiz", quiz.toString())
-                        }
-                        _quizList.value = StateQuizScreen(data = resources.data)
+                        val listOfQuizState : List<QuizState> = getListOfQuizState(resources.data)
+                        _quizList.value = StateQuizScreen(quizState = listOfQuizState)
                     }
 
                     is Resources.Error -> {
@@ -59,5 +58,20 @@ class QuizViewModel @Inject constructor(private val getQuizzesUseCases: GetQuizz
                 }
             }
         }
+    }
+
+    private fun getListOfQuizState(data: List<Quiz>?): List<QuizState> {
+
+        val listOfQuizState = mutableListOf<QuizState>()
+
+        for(quiz in data!!){
+            val shuffleOption = mutableListOf<String>().apply{
+                add(quiz.correct_answer)
+                addAll(quiz.incorrect_answers)
+                shuffle()
+            }
+            listOfQuizState.add(QuizState(quiz, shuffleOption, -1))
+        }
+        return listOfQuizState
     }
 }
