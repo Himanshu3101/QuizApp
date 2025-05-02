@@ -16,22 +16,26 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.quizapp.R
+import com.example.quizapp.presentation.quiz.QuizState
 import com.example.quizapp.presentation.util.Dimens
 
-@Preview
+/*@Preview
 @Composable
 fun Prevv() {
     QuizInterface(
-        onOptionSelected = {}, qNumber = 1
+        onOptionSelected = {}, qNumber = 1, quizState = QuizState()
     )
-}
+}*/
 
 @Composable
 fun QuizInterface(
     onOptionSelected: (Int) -> Unit,
     qNumber: Int,
+    quizState: QuizState,
     modifier: Modifier = Modifier
 ) {
+
+    val questions = quizState.quiz?.question!!.replace("&quot;", "\"").replace("&#039;", "\'")
 
     Box(
         modifier = modifier,
@@ -51,7 +55,7 @@ fun QuizInterface(
                 )
                 Text(
                     modifier = Modifier.weight(9f),
-                    text = "Which cartoon do you see?",
+                    text = questions,
                     color = colorResource(R.color.blue_grey),
                     fontSize = Dimens.SmallTextSize
                 )
@@ -63,10 +67,10 @@ fun QuizInterface(
                 modifier = Modifier.padding(horizontal = 15.dp)
             ){
                 val options = listOf(
-                    "A" to "Doraemon",
-                    "B" to "Oggy",
-                    "C" to "BEN 10",
-                    "D" to "Tom & Jerry"
+                    "A" to quizState.shuffledOptions[0].replace("&quot;", "\"").replace("&#039;", "\'"),
+                    "B" to quizState.shuffledOptions[1].replace("&quot;", "\"").replace("&#039;", "\'"),
+                    "C" to quizState.shuffledOptions[2].replace("&quot;", "\"").replace("&#039;", "\'"),
+                    "D" to quizState.shuffledOptions[3].replace("&quot;", "\"").replace("&#039;", "\'"),
                 )
 
                 Column{

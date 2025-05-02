@@ -12,10 +12,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.colorResource
@@ -29,13 +35,14 @@ import com.example.quizapp.presentation.util.Constants
 import com.example.quizapp.presentation.util.Dimens
 import com.example.quizapp.presentation.util.Dimens.LargeSpacerHeight
 import com.example.quizapp.presentation.util.Dimens.MediumCornerRadius
+import kotlinx.coroutines.launch
 
 
 /*TODO("We can implement sharedViewModel logic here bcoz we need same data from home screen but here,
    we need only 3. So, we can use shared View Model but here we are passing data directly.")*/
 @Preview
 @Composable
-fun PrevQuiz(){
+fun PrevQuiz() {
     QuizScreen(
         numOfQuiz = 10,
         quizCategory = "General Knowledge",
@@ -47,34 +54,41 @@ fun PrevQuiz(){
 }
 
 @Composable
-fun QuizScreen (
+fun QuizScreen(
     numOfQuiz: Int,
     quizCategory: String,
     quizDifficulty: String,
-    quizType : String,
-    event : (EventQuizScreen) -> Unit,
-    state : StateQuizScreen
+    quizType: String,
+    event: (EventQuizScreen) -> Unit,
+    state: StateQuizScreen
 ) {
 
     LaunchedEffect(key1 = Unit) {
-        val difficulty = when (quizDifficulty){
+        val difficulty = when (quizDifficulty) {
             "Medium" -> "medium"
             "Hard" -> "hard"
             else -> "easy"
 
         }
-        val type = when(quizType){
+        val type = when (quizType) {
             "Multiple Choice" -> "multiple"
             else -> "boolean"
         }
 
-        event(EventQuizScreen.GetQuizzes(numOfQuiz, Constants.categoriesMap[quizCategory]!!, difficulty, type))
+        event(
+            EventQuizScreen.GetQuizzes(
+                numOfQuiz,
+                Constants.categoriesMap[quizCategory]!!,
+                difficulty,
+                type
+            )
+        )
     }
 
     Column(
         modifier = Modifier.fillMaxSize()
-    ){
-        QuizAppBar(quizCategory = quizCategory){
+    ) {
+        QuizAppBar(quizCategory = quizCategory) {
 
         }
 
@@ -82,14 +96,14 @@ fun QuizScreen (
             modifier = Modifier
                 .padding(Dimens.VerySmallPadding)
                 .fillMaxSize()
-        ){
+        ) {
             Spacer(modifier = Modifier.height(LargeSpacerHeight))
 
             Row(
                 modifier = Modifier
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
-            ){
+            ) {
                 Text(
                     text = "Questions : $numOfQuiz",
                     color = colorResource(R.color.blue_grey)
@@ -113,62 +127,103 @@ fun QuizScreen (
 
             //QuizUI Interface
 
-            if(quizFetched(state)){
+             if(quizFetched(state)){
 
-                for(i in state.quizState!!){
-                    Log.d("quizzes", i.toString())
+                val pagerState = rememberPagerState() { state.quizState.size }
+
+                HorizontalPager(state = pagerState) { index ->
+                    QuizInterface(
+                        modifier = Modifier.weight(1f),
+                        onOptionSelected = {},
+                        quizState = state.quizState[index],
+                        qNumber = index + 1
+                    )
                 }
-                QuizInterface(
-                    modifier = Modifier.weight(1f),
-                    onOptionSelected = {},
-                    qNumber = 1
-                )
 
-                Row (
+                val buttonText by remember {
+                    derivedStateOf {
+                        when (pagerState.currentPage) {
+                            0 -> {
+                                listOf("", "Next")
+                            }
+
+                            state.quizState.size - 1 -> {
+                                listOf("Previous", "Submit")
+                            }
+
+                            else -> {
+                                listOf("Previous", "Next")
+                            }
+                        }
+                    }
+                }
+
+                Row(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = Dimens.MediumPadding)
                         .navigationBarsPadding()
-                ){
-                    ButtonBox(
-                        text = "Previous",
-                        padding = Dimens.SmallPadding,
-                        fraction = 0.43f,
-                        fontSize = Dimens.SmallTextSize
+                ) {
+                    val scope = rememberCoroutineScope()
 
-                    ) {
+                    if (buttonText[0].isNotEmpty()) {
+                        ButtonBox(
+                            text = "Previous",
+                            padding = Dimens.SmallPadding,
+                            fraction = 0.43f,
+                            fontSize = Dimens.SmallTextSize
 
+                        ) {
+                            scope.launch {
+                                pagerState.animateScrollToPage(pagerState.currentPage - 1)
+                            }
+
+                        }
                     }
 
                     ButtonBox(
-                        text = "Next",
+                        text = buttonText[1],
                         padding = Dimens.SmallPadding,
                         borderColor = colorResource(id = R.color.orange),
-                        containerColor = colorResource(id = R.color.dark_slate_blue),
+                        containerColor = if(pagerState.currentPage == state.quizState.size-1) colorResource(id = R.color.orange) else colorResource(id = R.color.dark_slate_blue),
                         fraction = 1f,
                         textColor = colorResource(id = R.color.white),
                         fontSize = Dimens.SmallTextSize
-                    ){
+                    ) {
+
+                        if (pagerState.currentPage == state.quizState.size - 1) {
+                            // TODO
+                        } else {
+                            scope.launch {
+                                pagerState.animateScrollToPage(pagerState.currentPage + 1)
+                            }
+                        }
 
                     }
 
                 }
+
+
             }
+
+
         }
     }
 }
 
 @Composable
 fun quizFetched(state: StateQuizScreen): Boolean {
-    return when{
+    return when {
         state.isLoading -> {
             ShimmerEffectQuizInterface()
             false
         }
-        state.quizState?. isNotEmpty() == true ->{
+
+        state.quizState?.isNotEmpty() == true -> {
             true
         }
-        else ->{
+
+        else -> {
             Text(text = state.error.toString(), color = colorResource(id = R.color.white))
             false
         }
