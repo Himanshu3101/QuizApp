@@ -17,11 +17,21 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import com.example.quizapp.R
 import com.example.quizapp.presentation.util.Dimens
 import com.example.quizapp.presentation.util.Dimens.MediumTextSize
+
+@Preview
+@Composable
+fun ButtonBoxPrev(){
+    ButtonBox(
+        text = "Next"
+    ) { }
+}
+
 
 @Composable
 fun ButtonBox(
