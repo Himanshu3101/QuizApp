@@ -80,8 +80,8 @@ fun QuizInterface(
                             QuizOption(
                                 optionNumber = optionNumber,
                                 option = optionText,
-                                selected = false,
                                 onOptionClick = {onOptionSelected(index)},
+                                selected = quizState.selectedOption == index,
                                 onUnselectOption = { onOptionSelected(-1) }
                             )
                         }

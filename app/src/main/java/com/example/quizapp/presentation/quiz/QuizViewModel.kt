@@ -27,9 +27,25 @@ class QuizViewModel @Inject constructor(private val getQuizzesUseCases: GetQuizz
             is EventQuizScreen.GetQuizzes -> {
                 getQuizzes(event.numOfQuizzes, event.category, event.difficulty, event.type)
             }
+            is EventQuizScreen.SetOptionSelected -> {
+                updateQuizStateList(event.quizStateIndex, event.selectedOption)
+            }
 
             else -> {}
         }
+    }
+
+    private fun updateQuizStateList(quizStateIndex: Int, selectedOption: Int) {
+        val updateQuizStateList = mutableListOf<QuizState>()
+        quizList.value.quizState.forEachIndexed { index, quizState ->
+            updateQuizStateList.add(
+                if(index == quizStateIndex){
+                    quizState.copy(selectedOption = selectedOption)
+                }
+                else quizState
+            )
+        }
+        _quizList.value = quizList.value.copy(quizState = updateQuizStateList)
     }
 
     private fun getQuizzes(amount: Int, category: Int, difficulty: String, type: String){

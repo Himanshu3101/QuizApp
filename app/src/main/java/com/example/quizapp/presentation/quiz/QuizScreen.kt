@@ -134,8 +134,10 @@ fun QuizScreen(
                 HorizontalPager(state = pagerState) { index ->
                     QuizInterface(
                         modifier = Modifier.weight(1f),
-                        onOptionSelected = {},
                         quizState = state.quizState[index],
+                        onOptionSelected = {selectedIndex ->
+                            event(EventQuizScreen.SetOptionSelected(index, selectedIndex))
+                        },
                         qNumber = index + 1
                     )
                 }
@@ -146,18 +148,15 @@ fun QuizScreen(
                             0 -> {
                                 listOf("", "Next")
                             }
-
                             state.quizState.size - 1 -> {
                                 listOf("Previous", "Submit")
                             }
-
                             else -> {
                                 listOf("Previous", "Next")
                             }
                         }
                     }
                 }
-
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -165,19 +164,16 @@ fun QuizScreen(
                         .navigationBarsPadding()
                 ) {
                     val scope = rememberCoroutineScope()
-
                     if (buttonText[0].isNotEmpty()) {
                         ButtonBox(
                             text = "Previous",
                             padding = Dimens.SmallPadding,
                             fraction = 0.43f,
                             fontSize = Dimens.SmallTextSize
-
                         ) {
                             scope.launch {
                                 pagerState.animateScrollToPage(pagerState.currentPage - 1)
                             }
-
                         }
                     }
 
@@ -190,23 +186,19 @@ fun QuizScreen(
                         textColor = colorResource(id = R.color.white),
                         fontSize = Dimens.SmallTextSize
                     ) {
-
                         if (pagerState.currentPage == state.quizState.size - 1) {
                             // TODO
+                            for( i in state.quizState){
+                                Log.d("selected options, QuizScreen:", i.selectedOption.toString())
+                            }
                         } else {
                             scope.launch {
                                 pagerState.animateScrollToPage(pagerState.currentPage + 1)
                             }
                         }
-
                     }
-
                 }
-
-
             }
-
-
         }
     }
 }
