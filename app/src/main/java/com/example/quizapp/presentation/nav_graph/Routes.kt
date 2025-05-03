@@ -31,5 +31,5 @@ sealed class Routes (val route:String){
             )
     }
 
-    object ScoreScreen : Routes(route = "score_screen")
+    object ScoreScreen : Routes(route = "score_screen/{}")
 }
