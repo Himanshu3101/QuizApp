@@ -3,7 +3,6 @@ package com.example.quizapp.presentation.quiz
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.quizapp.common.Resources
 import com.example.quizapp.domain.model.Quiz
 import com.example.quizapp.domain.usecases.GetQuizzesUseCases
@@ -46,6 +45,21 @@ class QuizViewModel @Inject constructor(private val getQuizzesUseCases: GetQuizz
             )
         }
         _quizList.value = quizList.value.copy(quizState = updateQuizStateList)
+
+        updateScore(_quizList.value.quizState[quizStateIndex])
+    }
+
+    private fun updateScore(quizState: QuizState) {
+        val correctAnswer = quizState.quiz?.correct_answer
+        val selectedAnswer = quizState.selectedOption?.let{
+            quizState.shuffledOptions[it].replace("&quot;", "\"").replace("&#039;", "\'")
+        }
+        Log.d("checkLog", "$correctAnswer -> $selectedAnswer")
+        if(correctAnswer == selectedAnswer){
+            val previousScore = quizList.value.score
+            _quizList.value = quizList.value.copy(score = previousScore + 1)
+        }
+
     }
 
     private fun getQuizzes(amount: Int, category: Int, difficulty: String, type: String){

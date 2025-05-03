@@ -188,9 +188,8 @@ fun QuizScreen(
                     ) {
                         if (pagerState.currentPage == state.quizState.size - 1) {
                             // TODO
-                            for( i in state.quizState){
-                                Log.d("selected options, QuizScreen:", i.selectedOption.toString())
-                            }
+
+                                Log.d("ScoreLog", state.score.toString())
                         } else {
                             scope.launch {
                                 pagerState.animateScrollToPage(pagerState.currentPage + 1)
