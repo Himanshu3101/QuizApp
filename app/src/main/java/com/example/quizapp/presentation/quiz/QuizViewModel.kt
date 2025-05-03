@@ -50,16 +50,17 @@ class QuizViewModel @Inject constructor(private val getQuizzesUseCases: GetQuizz
     }
 
     private fun updateScore(quizState: QuizState) {
-        val correctAnswer = quizState.quiz?.correct_answer
-        val selectedAnswer = quizState.selectedOption?.let{
-            quizState.shuffledOptions[it].replace("&quot;", "\"").replace("&#039;", "\'")
+        if(quizState.selectedOption != -1){
+            val correctAnswer = quizState.quiz?.correct_answer
+            val selectedAnswer = quizState.selectedOption?.let{
+                quizState.shuffledOptions[it].replace("&quot;", "\"").replace("&#039;", "\'")
+            }
+            Log.d("checkLog", "$correctAnswer -> $selectedAnswer")
+            if(correctAnswer == selectedAnswer){
+                val previousScore = quizList.value.score
+                _quizList.value = quizList.value.copy(score = previousScore + 1)
+            }
         }
-        Log.d("checkLog", "$correctAnswer -> $selectedAnswer")
-        if(correctAnswer == selectedAnswer){
-            val previousScore = quizList.value.score
-            _quizList.value = quizList.value.copy(score = previousScore + 1)
-        }
-
     }
 
     private fun getQuizzes(amount: Int, category: Int, difficulty: String, type: String){
