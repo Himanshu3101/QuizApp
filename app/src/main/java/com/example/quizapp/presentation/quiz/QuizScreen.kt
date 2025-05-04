@@ -1,6 +1,7 @@
 package com.example.quizapp.presentation.quiz
 
 import android.util.Log
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -26,9 +27,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.example.quizapp.R
 import com.example.quizapp.presentation.common.ButtonBox
 import com.example.quizapp.presentation.common.QuizAppBar
+import com.example.quizapp.presentation.nav_graph.Routes
 import com.example.quizapp.presentation.quiz.component.QuizInterface
 import com.example.quizapp.presentation.quiz.component.ShimmerEffectQuizInterface
 import com.example.quizapp.presentation.util.Constants
@@ -40,6 +44,7 @@ import kotlinx.coroutines.launch
 
 /*TODO("We can implement sharedViewModel logic here bcoz we need same data from home screen but here,
    we need only 3. So, we can use shared View Model but here we are passing data directly.")*/
+/*
 @Preview
 @Composable
 fun PrevQuiz() {
@@ -49,9 +54,11 @@ fun PrevQuiz() {
         quizDifficulty = "Medium",
         quizType = "Multiple Choice",
         event = {},
-        state = StateQuizScreen()
+        state = StateQuizScreen(),
+        navController = NavController
     )
 }
+*/
 
 @Composable
 fun QuizScreen(
@@ -60,9 +67,15 @@ fun QuizScreen(
     quizDifficulty: String,
     quizType: String,
     event: (EventQuizScreen) -> Unit,
-    state: StateQuizScreen
+    state: StateQuizScreen,
+    navController: NavController
 ) {
 
+    BackHandler {
+        navController.navigate(Routes.HomeScreen.route){
+            popUpTo(Routes.HomeScreen.route){inclusive = true}
+        }
+    }
     LaunchedEffect(key1 = Unit) {
         val difficulty = when (quizDifficulty) {
             "Medium" -> "medium"
@@ -89,7 +102,9 @@ fun QuizScreen(
         modifier = Modifier.fillMaxSize()
     ) {
         QuizAppBar(quizCategory = quizCategory) {
-
+            navController.navigate(Routes.HomeScreen.route){
+                popUpTo(Routes.HomeScreen.route){inclusive = true}
+            }
         }
 
         Column(
@@ -188,7 +203,7 @@ fun QuizScreen(
                     ) {
                         if (pagerState.currentPage == state.quizState.size - 1) {
                             // TODO
-
+                            navController.navigate(Routes.ScoreScreen.passNumOfQuesAndCorrectAnswer(state.quizState.size, state.score ))
                                 Log.d("ScoreLog", state.score.toString())
                         } else {
                             scope.launch {
@@ -210,7 +225,7 @@ fun quizFetched(state: StateQuizScreen): Boolean {
             false
         }
 
-        state.quizState?.isNotEmpty() == true -> {
+        state.quizState.isNotEmpty() -> {
             true
         }
 

@@ -1,6 +1,7 @@
 package com.example.quizapp.presentation.score
 
 import android.icu.text.DecimalFormat
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -33,24 +34,32 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.airbnb.lottie.compose.rememberLottieRetrySignal
 import com.example.quizapp.R
+import com.example.quizapp.presentation.nav_graph.Routes
 import com.example.quizapp.presentation.util.Dimens
 
-@Preview
+/*@Preview
 @Composable
-fun Prevv(){
+fun Prev(){
     ScoreScreen(10, 3)
-}
+}*/
 
 @Composable
 fun ScoreScreen(
     noOfQuestion: Int,
     noOfCorrectAnswer: Int,
+    navController: NavController
 ){
+
+    BackHandler {
+        goToHome(navController)
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -63,7 +72,9 @@ fun ScoreScreen(
             horizontalArrangement = Arrangement.End
         ){
             IconButton(
-                onClick = { /*TODO*/ }
+                onClick = {
+                    goToHome(navController)
+                }
             ) {
                 Icon(
                     painterResource(R.drawable.baseline_close_24),
@@ -93,16 +104,16 @@ fun ScoreScreen(
                 val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.congra))
                 val annotatedString = buildAnnotatedString {
                     withStyle(style = SpanStyle(Color.Black)){
-                        append("You attempted")
+                        append("You attempted ")
                     }
                     withStyle(style = SpanStyle(Color.Blue)){
-                        append("$noOfQuestion questions")
+                        append("$noOfQuestion questions ")
                     }
                     withStyle(style = SpanStyle(Color.Black)){
-                        append("and from that")
+                        append("and from that ")
                     }
                     withStyle(style = SpanStyle(Color.Black)){
-                        append("$noOfCorrectAnswer answers")
+                        append("$noOfCorrectAnswer answers ")
                     }
                     withStyle(style = SpanStyle(Color.Black)){
                         append("are correct")
@@ -160,42 +171,52 @@ fun ScoreScreen(
 
                 Row (
                     verticalAlignment = Alignment.CenterVertically
-                ){
+                ) {
                     Text(
                         text = "Share with us :",
                         color = Color.Black,
                         style = MaterialTheme.typography.titleMedium,
                         fontSize = Dimens.SmallTextSize
                     )
+
+                    Spacer(modifier = Modifier.width(Dimens.SmallSpacerWidth))
+
+                    Icon(
+                        modifier = Modifier
+                            .size(30.dp),
+                        painter = painterResource(R.drawable.instagram),
+                        tint = Color.Unspecified,
+                        contentDescription = ""
+                    )
+
+                    Spacer(modifier = Modifier.width(Dimens.SmallSpacerWidth))
+
+                    Icon(
+                        modifier = Modifier
+                            .size(40.dp),
+                        painter = painterResource(R.drawable.facebook),
+                        tint = Color.Unspecified,
+                        contentDescription = ""
+                    )
+
+                    Spacer(modifier = Modifier.width(Dimens.SmallSpacerWidth))
+
+                    Icon(
+                        modifier = Modifier
+                            .size(30.dp),
+                        painter = painterResource(R.drawable.whatsapp),
+                        tint = Color.Unspecified,
+                        contentDescription = ""
+                    )
                 }
-                Spacer(modifier = Modifier.width(Dimens.SmallSpacerWidth))
-
-               /* Icon(
-                    modifier = Modifier
-                        .size(30.dp),
-                    painter = painterResource(R.drawable.instagram),
-                    contentDescription = ""
-                )
-
-                Spacer(modifier = Modifier.width(Dimens.SmallSpacerWidth))
-
-                Icon(
-                    modifier = Modifier
-                        .size(30.dp),
-                    painter = painterResource(R.drawable.facebook),
-                    contentDescription = ""
-                )
-
-                Spacer(modifier = Modifier.width(Dimens.SmallSpacerWidth))
-
-                Icon(
-                    modifier = Modifier
-                        .size(30.dp),
-                    painter = painterResource(R.drawable.whatsapp),
-                    contentDescription = ""
-                )*/
             }
         }
+    }
+}
+
+fun goToHome(navController : NavController){
+    navController.navigate(Routes.HomeScreen.route){
+        popUpTo(Routes.HomeScreen.route){inclusive = true}
     }
 }
 
