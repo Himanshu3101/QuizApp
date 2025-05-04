@@ -26,9 +26,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import com.example.quizapp.R
 import com.example.quizapp.presentation.common.ButtonBox
 import com.example.quizapp.presentation.common.QuizAppBar
@@ -230,7 +228,7 @@ fun quizFetched(state: StateQuizScreen): Boolean {
         }
 
         else -> {
-            Text(text = state.error.toString(), color = colorResource(id = R.color.white))
+            Text(text = state.error, color = colorResource(id = R.color.white))
             false
         }
     }

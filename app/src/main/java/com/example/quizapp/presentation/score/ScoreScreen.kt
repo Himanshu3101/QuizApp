@@ -32,22 +32,14 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
-import com.airbnb.lottie.compose.rememberLottieRetrySignal
 import com.example.quizapp.R
 import com.example.quizapp.presentation.nav_graph.Routes
 import com.example.quizapp.presentation.util.Dimens
-
-/*@Preview
-@Composable
-fun Prev(){
-    ScoreScreen(10, 3)
-}*/
 
 @Composable
 fun ScoreScreen(
