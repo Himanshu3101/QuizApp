@@ -19,13 +19,13 @@ import com.example.quizapp.R
 import com.example.quizapp.presentation.quiz.QuizState
 import com.example.quizapp.presentation.util.Dimens
 
-/*@Preview
+@Preview(apiLevel = 34)
 @Composable
-fun Prevv() {
+fun Preview() {
     QuizInterface(
         onOptionSelected = {}, qNumber = 1, quizState = QuizState()
     )
-}*/
+}
 
 @Composable
 fun QuizInterface(

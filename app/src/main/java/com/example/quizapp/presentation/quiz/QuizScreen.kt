@@ -26,7 +26,9 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.quizapp.R
 import com.example.quizapp.presentation.common.ButtonBox
 import com.example.quizapp.presentation.common.QuizAppBar
@@ -42,10 +44,15 @@ import kotlinx.coroutines.launch
 
 /*TODO("We can implement sharedViewModel logic here bcoz we need same data from home screen but here,
    we need only 3. So, we can use shared View Model but here we are passing data directly.")*/
-/*
-@Preview
+
+@Preview(
+    apiLevel = 34
+)
 @Composable
 fun PrevQuiz() {
+
+    val navController = rememberNavController()
+
     QuizScreen(
         numOfQuiz = 10,
         quizCategory = "General Knowledge",
@@ -53,10 +60,10 @@ fun PrevQuiz() {
         quizType = "Multiple Choice",
         event = {},
         state = StateQuizScreen(),
-        navController = NavController
+
+        navController = navController
     )
 }
-*/
 
 @Composable
 fun QuizScreen(

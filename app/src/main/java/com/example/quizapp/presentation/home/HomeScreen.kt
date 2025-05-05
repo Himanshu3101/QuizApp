@@ -9,7 +9,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.quizapp.presentation.common.AppDropDownMenu
 import com.example.quizapp.presentation.common.ButtonBox
 import com.example.quizapp.presentation.home.component.HomeHeader
@@ -21,43 +23,60 @@ import com.example.quizapp.presentation.util.Dimens.MediumPadding
 import com.example.quizapp.presentation.util.Dimens.MediumSpacerHeight
 import com.example.quizapp.presentation.util.Dimens.SmallSpacerHeight
 
-/*@Preview
+@Preview(apiLevel = 34)
 @Composable
 fun PrevHome() {
-    HomeScreen(state = DCStateHomeScreen(),
-        event = {})
-}*/
-
-
+    HomeScreen(
+        state = DCStateHomeScreen(),
+        event = {},
+        navController = rememberNavController()
+    )
+}
 
 @Composable
 fun HomeScreen(
-    state : DCStateHomeScreen,
-    event : (EventHomeScreen) -> Unit,
+    state: DCStateHomeScreen,
+    event: (EventHomeScreen) -> Unit,
     navController: NavController
 ) {
-    Column (
+    Column(
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-    ){
+    ) {
         HomeHeader()
 
         Spacer(modifier = Modifier.height(MediumSpacerHeight))
-        AppDropDownMenu(menuName = "Number of Questions:", menuList = Constants.numberAsString, text = state.numberOfQuiz.toString(), onDropDownClick = {event(EventHomeScreen.SetNumberOfQuizzes(it.toInt()))})
-
-         Spacer(modifier = Modifier.height(SmallSpacerHeight))
-         AppDropDownMenu(menuName = "Select Category:", menuList = Constants.categories, text = state.category, onDropDownClick = {event(EventHomeScreen.SetQuizCategory(it))})
-
-         Spacer(modifier = Modifier.height(SmallSpacerHeight))
-         AppDropDownMenu(menuName = "Select Difficulty:", menuList = difficulty, text = state.difficulty,onDropDownClick = {event(EventHomeScreen.SetQuizDifficult(it))})
+        AppDropDownMenu(
+            menuName = "Number of Questions:",
+            menuList = Constants.numberAsString,
+            text = state.numberOfQuiz.toString(),
+            onDropDownClick = { event(EventHomeScreen.SetNumberOfQuizzes(it.toInt())) })
 
         Spacer(modifier = Modifier.height(SmallSpacerHeight))
-        AppDropDownMenu(menuName = "Select Type:", menuList = type, text = state.type, onDropDownClick = {event(EventHomeScreen.SetQuizType(it))})
+        AppDropDownMenu(
+            menuName = "Select Category:",
+            menuList = Constants.categories,
+            text = state.category,
+            onDropDownClick = { event(EventHomeScreen.SetQuizCategory(it)) })
+
+        Spacer(modifier = Modifier.height(SmallSpacerHeight))
+        AppDropDownMenu(
+            menuName = "Select Difficulty:",
+            menuList = difficulty,
+            text = state.difficulty,
+            onDropDownClick = { event(EventHomeScreen.SetQuizDifficult(it)) })
+
+        Spacer(modifier = Modifier.height(SmallSpacerHeight))
+        AppDropDownMenu(
+            menuName = "Select Type:",
+            menuList = type,
+            text = state.type,
+            onDropDownClick = { event(EventHomeScreen.SetQuizType(it)) })
 
         Spacer(modifier = Modifier.height(MediumSpacerHeight))
 
-        ButtonBox(text = "Generate Quiz", padding = MediumPadding){
+        ButtonBox(text = "Generate Quiz", padding = MediumPadding) {
             navController.navigate(
                 route = Routes.QuizScreen.passQuizParams(
                     numOfQuizzes = state.numberOfQuiz,
@@ -66,7 +85,10 @@ fun HomeScreen(
                     type = state.type
                 )
             )
-            Log.d("quiz details", "${state.numberOfQuiz} ${state.category} ${state.difficulty} ${state.type}")
+            Log.d(
+                "quiz details",
+                "${state.numberOfQuiz} ${state.category} ${state.difficulty} ${state.type}"
+            )
         }
     }
 }

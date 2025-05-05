@@ -9,6 +9,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.quizapp.presentation.User.UserInfo
+import com.example.quizapp.presentation.User.UserViewModel
 import com.example.quizapp.presentation.home.HomeScreen
 import com.example.quizapp.presentation.home.HomeScreenViewModel
 import com.example.quizapp.presentation.quiz.QuizScreen
@@ -20,7 +22,19 @@ fun SetNavGraph() {
 
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = Routes.HomeScreen.route){
+    NavHost(navController = navController, startDestination = Routes.UserScreen.route){
+
+//    NavHost(navController = navController, startDestination = Routes.HomeScreen.route){
+
+
+        composable(route = Routes.UserScreen.route){
+            val viewModel : UserViewModel = hiltViewModel()
+            val state by viewModel.userState.collectAsState()
+            UserInfo(state = state,
+                event = viewModel :: onEvent,
+                navController = navController)
+        }
+
 
         composable(route = Routes.HomeScreen.route){
             val viewModel : HomeScreenViewModel = hiltViewModel()

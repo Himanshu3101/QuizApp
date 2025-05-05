@@ -9,7 +9,10 @@ const val CORRECT_ANS_KEY = "correct_ans_key"
 
 sealed class Routes (val route:String){
 
+    object UserScreen : Routes(route = "userScreen")
+
     object HomeScreen : Routes(route = "homeScreen")
+
     object QuizScreen : Routes(route = "quizScreen/{$ARG_KEY_QUIZ_NUMBER}/{$ARG_KEY_QUIZ_CATEGORY}/{$ARG_KEY_QUIZ_DIFFICULTY}/{$ARG_KEY_QUIZ_TYPE}")
 
     fun passQuizParams(numOfQuizzes : Int, category : String, difficulty : String, type : String) : String{

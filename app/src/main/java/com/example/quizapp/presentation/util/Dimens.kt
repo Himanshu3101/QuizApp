@@ -12,6 +12,7 @@ object Dimens {
     val LargeTextSize = 40.sp
 
     val HomeTopBoxHeight = 150.dp
+    val TopHeaderSize = 70.dp
 
     val VerySmallPadding = 10.dp
     val SmallPadding = 15.dp
