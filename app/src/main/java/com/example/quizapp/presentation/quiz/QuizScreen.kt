@@ -59,7 +59,7 @@ fun PrevQuiz() {
         quizDifficulty = "Medium",
         quizType = "Multiple Choice",
         event = {},
-        state = StateQuizScreen(),
+        state = dc_StateQuizScreen(),
 
         navController = navController
     )
@@ -71,8 +71,8 @@ fun QuizScreen(
     quizCategory: String,
     quizDifficulty: String,
     quizType: String,
-    event: (EventQuizScreen) -> Unit,
-    state: StateQuizScreen,
+    event: (sc_EventQuizScreen) -> Unit,
+    state: dc_StateQuizScreen,
     navController: NavController
 ) {
 
@@ -94,7 +94,7 @@ fun QuizScreen(
         }
 
         event(
-            EventQuizScreen.GetQuizzes(
+            sc_EventQuizScreen.GetQuizzes(
                 numOfQuiz,
                 Constants.categoriesMap[quizCategory]!!,
                 difficulty,
@@ -156,7 +156,7 @@ fun QuizScreen(
                         modifier = Modifier.weight(1f),
                         quizState = state.quizState[index],
                         onOptionSelected = {selectedIndex ->
-                            event(EventQuizScreen.SetOptionSelected(index, selectedIndex))
+                            event(sc_EventQuizScreen.SetOptionSelected(index, selectedIndex))
                         },
                         qNumber = index + 1
                     )
@@ -223,7 +223,7 @@ fun QuizScreen(
 }
 
 @Composable
-fun quizFetched(state: StateQuizScreen): Boolean {
+fun quizFetched(state: dc_StateQuizScreen): Boolean {
     return when {
         state.isLoading -> {
             ShimmerEffectQuizInterface()

@@ -1,6 +1,7 @@
 package com.example.quizapp.presentation.score
 
 import android.icu.text.DecimalFormat
+import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -38,6 +39,7 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.quizapp.R
+import com.example.quizapp.presentation.User.DCStateUser
 import com.example.quizapp.presentation.nav_graph.Routes
 import com.example.quizapp.presentation.util.Dimens
 
@@ -45,12 +47,15 @@ import com.example.quizapp.presentation.util.Dimens
 fun ScoreScreen(
     noOfQuestion: Int,
     noOfCorrectAnswer: Int,
-    navController: NavController
+    navController: NavController,
+    userInfo: DCStateUser
 ){
 
     BackHandler {
         goToHome(navController)
     }
+
+    Log.d("user121", "username=${userInfo.userName}, occupation=${userInfo.occupation}, city=${userInfo.city}")
 
     Column(
         modifier = Modifier

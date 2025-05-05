@@ -28,7 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.quizapp.R
-import com.example.quizapp.presentation.User.component.PageHeader
+import com.example.quizapp.presentation.common.PageHeader
 import com.example.quizapp.presentation.common.ButtonBox
 import com.example.quizapp.presentation.nav_graph.Routes
 import com.example.quizapp.presentation.util.Dimens
@@ -36,14 +36,15 @@ import com.example.quizapp.presentation.util.Dimens
 @Preview(apiLevel = 34)
 @Composable
 fun Prev() {
-    UserInfo(navController = rememberNavController(), state = DCStateUser(), event = { })
+    UserInfo(navController = rememberNavController(), state = DCStateUser(), event = { }, onSaveUser = {})
 }
 
 @Composable
 fun UserInfo(
     navController: NavHostController,
     state: DCStateUser,
-    event: (EventUserScreen) -> Unit
+    event: (EventUserScreen) -> Unit,
+    onSaveUser: (DCStateUser) -> Unit
 ) {
 
     var showError by remember { mutableStateOf(false) }
@@ -165,8 +166,8 @@ fun UserInfo(
                 borderColor = colorResource(id = R.color.orange),
                 containerColor = colorResource(id = R.color.orange),
             ) {
-                Log.d("user", "username = ${state.userName}, occupation=${state.occupation}, city=${state.city}")
                 if (isValid) {
+                    onSaveUser(state)
                     navController.navigate(Routes.HomeScreen.route)
                 } else {
                    showError = true

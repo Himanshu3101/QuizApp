@@ -27,7 +27,7 @@ import com.example.quizapp.presentation.util.Dimens.SmallSpacerHeight
 @Composable
 fun PrevHome() {
     HomeScreen(
-        state = DCStateHomeScreen(),
+        state = dc_StateHomeScreen(),
         event = {},
         navController = rememberNavController()
     )
@@ -35,8 +35,8 @@ fun PrevHome() {
 
 @Composable
 fun HomeScreen(
-    state: DCStateHomeScreen,
-    event: (EventHomeScreen) -> Unit,
+    state: dc_StateHomeScreen,
+    event: (sc_EventHomeScreen) -> Unit,
     navController: NavController
 ) {
     Column(
@@ -51,28 +51,28 @@ fun HomeScreen(
             menuName = "Number of Questions:",
             menuList = Constants.numberAsString,
             text = state.numberOfQuiz.toString(),
-            onDropDownClick = { event(EventHomeScreen.SetNumberOfQuizzes(it.toInt())) })
+            onDropDownClick = { event(sc_EventHomeScreen.SetNumberOfQuizzes(it.toInt())) })
 
         Spacer(modifier = Modifier.height(SmallSpacerHeight))
         AppDropDownMenu(
             menuName = "Select Category:",
             menuList = Constants.categories,
             text = state.category,
-            onDropDownClick = { event(EventHomeScreen.SetQuizCategory(it)) })
+            onDropDownClick = { event(sc_EventHomeScreen.SetQuizCategory(it)) })
 
         Spacer(modifier = Modifier.height(SmallSpacerHeight))
         AppDropDownMenu(
             menuName = "Select Difficulty:",
             menuList = difficulty,
             text = state.difficulty,
-            onDropDownClick = { event(EventHomeScreen.SetQuizDifficult(it)) })
+            onDropDownClick = { event(sc_EventHomeScreen.SetQuizDifficult(it)) })
 
         Spacer(modifier = Modifier.height(SmallSpacerHeight))
         AppDropDownMenu(
             menuName = "Select Type:",
             menuList = type,
             text = state.type,
-            onDropDownClick = { event(EventHomeScreen.SetQuizType(it)) })
+            onDropDownClick = { event(sc_EventHomeScreen.SetQuizType(it)) })
 
         Spacer(modifier = Modifier.height(MediumSpacerHeight))
 

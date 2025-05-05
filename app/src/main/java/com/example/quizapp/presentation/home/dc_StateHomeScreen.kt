@@ -1,6 +1,6 @@
 package com.example.quizapp.presentation.home
 
-data class DCStateHomeScreen(
+data class dc_StateHomeScreen(
     val numberOfQuiz : Int = 10,
     val category : String = "General Knowledge",
     val difficulty : String = "Easy",

@@ -20,7 +20,7 @@ class GetQuizzesUseCases(
     // without operator invoke function. we have to call class name and function name.
     /*fun getQuizzes(*/
 
-    //Here, we know everytime, class have a same  use cases. So we can use operator invoke function.
+    //Here, we know everytime class have to use same cases. So we can use operator invoke function.
     operator fun invoke(
         amount:Int,
         category:Int,

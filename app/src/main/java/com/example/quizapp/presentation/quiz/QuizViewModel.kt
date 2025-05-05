@@ -18,15 +18,15 @@ import javax.inject.Inject
 @HiltViewModel
 class QuizViewModel @Inject constructor(private val getQuizzesUseCases: GetQuizzesUseCases) : ViewModel() {
 
-    private val _quizList = MutableStateFlow(StateQuizScreen())
+    private val _quizList = MutableStateFlow(dc_StateQuizScreen())
     val quizList = _quizList.asStateFlow()
 
-    fun onEvent(event: EventQuizScreen){
+    fun onEvent(event: sc_EventQuizScreen){
         when(event) {
-            is EventQuizScreen.GetQuizzes -> {
+            is sc_EventQuizScreen.GetQuizzes -> {
                 getQuizzes(event.numOfQuizzes, event.category, event.difficulty, event.type)
             }
-            is EventQuizScreen.SetOptionSelected -> {
+            is sc_EventQuizScreen.SetOptionSelected -> {
                 updateQuizStateList(event.quizStateIndex, event.selectedOption)
             }
 
@@ -73,16 +73,16 @@ class QuizViewModel @Inject constructor(private val getQuizzesUseCases: GetQuizz
             getQuizzesUseCases(amount, category, difficulty, type).collect { resources ->
                 when (resources) {
                     is Resources.Loading -> {
-                        _quizList.value = StateQuizScreen(isLoading = true)
+                        _quizList.value = dc_StateQuizScreen(isLoading = true)
                     }
 
                     is Resources.Success -> {
                         val listOfQuizState : List<QuizState> = getListOfQuizState(resources.data)
-                        _quizList.value = StateQuizScreen(quizState = listOfQuizState)
+                        _quizList.value = dc_StateQuizScreen(quizState = listOfQuizState)
                     }
 
                     is Resources.Error -> {
-                        _quizList.value = StateQuizScreen(error = resources.message.toString())
+                        _quizList.value = dc_StateQuizScreen(error = resources.message.toString())
                     }
 
                     else ->{}

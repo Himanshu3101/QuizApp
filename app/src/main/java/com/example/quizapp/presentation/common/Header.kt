@@ -1,4 +1,4 @@
-package com.example.quizapp.presentation.User.component
+package com.example.quizapp.presentation.common
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -11,7 +11,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.style.TextAlign
@@ -19,12 +18,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.quizapp.R
 import com.example.quizapp.presentation.util.Dimens
 
-@Preview(
-    apiLevel = 34
-)
+@Preview
 @Composable
-fun Prev(){
-    PageHeader("Hello")
+fun PrevHeader(){
+    PageHeader(
+        "Next"
+    )
 }
 
 

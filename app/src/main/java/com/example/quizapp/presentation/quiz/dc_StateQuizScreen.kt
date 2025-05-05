@@ -2,7 +2,7 @@ package com.example.quizapp.presentation.quiz
 
 import com.example.quizapp.domain.model.Quiz
 
-data class StateQuizScreen(
+data class dc_StateQuizScreen(
     val isLoading : Boolean = false,
     val quizState : List<QuizState>  = emptyList(),
     val error : String = "",

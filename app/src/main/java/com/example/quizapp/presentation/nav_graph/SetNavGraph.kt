@@ -21,18 +21,19 @@ import com.example.quizapp.presentation.score.ScoreScreen
 fun SetNavGraph() {
 
     val navController = rememberNavController()
+    val sharedViewModel : SharedViewModel = hiltViewModel()
 
     NavHost(navController = navController, startDestination = Routes.UserScreen.route){
-
-//    NavHost(navController = navController, startDestination = Routes.HomeScreen.route){
-
-
         composable(route = Routes.UserScreen.route){
             val viewModel : UserViewModel = hiltViewModel()
             val state by viewModel.userState.collectAsState()
             UserInfo(state = state,
                 event = viewModel :: onEvent,
-                navController = navController)
+                navController = navController,
+                onSaveUser = {
+                    sharedViewModel.setUserData(it)
+                }
+            )
         }
 
 
@@ -84,10 +85,12 @@ fun SetNavGraph() {
         ) {
             val numOfQuestions = it.arguments?.getInt(NOQ_KEY)
             val numOfCorrectAns = it.arguments?.getInt(CORRECT_ANS_KEY)
+            val user = sharedViewModel.userData.value
             ScoreScreen(
                 noOfQuestion = numOfQuestions!!,
                 noOfCorrectAnswer = numOfCorrectAns!!,
-                navController = navController
+                navController = navController,
+                userInfo = user,
             )
         }
     }

@@ -6,21 +6,21 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 class HomeScreenViewModel : ViewModel() {
 
-    private val _homeState = MutableStateFlow(DCStateHomeScreen())
+    private val _homeState = MutableStateFlow(dc_StateHomeScreen())
     val homeState = _homeState
 
-    fun onEvent(event : EventHomeScreen){
+    fun onEvent(event : sc_EventHomeScreen){
         when(event){
-            is EventHomeScreen.SetNumberOfQuizzes -> {
+            is sc_EventHomeScreen.SetNumberOfQuizzes -> {
                     _homeState.value = homeState.value.copy(numberOfQuiz = event.numberOfQuiz)
             }
-            is EventHomeScreen.SetQuizCategory -> {
+            is sc_EventHomeScreen.SetQuizCategory -> {
                     _homeState.value = homeState.value.copy(category = event.category)
             }
-            is EventHomeScreen.SetQuizDifficult ->{
+            is sc_EventHomeScreen.SetQuizDifficult ->{
                 _homeState.value = homeState.value.copy(difficulty = event.difficulty)
             }
-            is EventHomeScreen.SetQuizType -> {
+            is sc_EventHomeScreen.SetQuizType -> {
                 _homeState.value = homeState.value.copy(type = event.type)
             }
             else -> {}
