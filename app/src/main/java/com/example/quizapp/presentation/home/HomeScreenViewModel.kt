@@ -23,7 +23,6 @@ class HomeScreenViewModel : ViewModel() {
             is sc_EventHomeScreen.SetQuizType -> {
                 _homeState.value = homeState.value.copy(type = event.type)
             }
-            else -> {}
         }
     }
 }

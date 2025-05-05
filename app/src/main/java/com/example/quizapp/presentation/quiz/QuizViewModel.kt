@@ -29,8 +29,6 @@ class QuizViewModel @Inject constructor(private val getQuizzesUseCases: GetQuizz
             is sc_EventQuizScreen.SetOptionSelected -> {
                 updateQuizStateList(event.quizStateIndex, event.selectedOption)
             }
-
-            else -> {}
         }
     }
 
@@ -84,8 +82,6 @@ class QuizViewModel @Inject constructor(private val getQuizzesUseCases: GetQuizz
                     is Resources.Error -> {
                         _quizList.value = dc_StateQuizScreen(error = resources.message.toString())
                     }
-
-                    else ->{}
                 }
             }
         }
