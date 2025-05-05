@@ -31,7 +31,6 @@ import com.example.quizapp.R
 import com.example.quizapp.presentation.User.component.PageHeader
 import com.example.quizapp.presentation.common.ButtonBox
 import com.example.quizapp.presentation.nav_graph.Routes
-import com.example.quizapp.presentation.quiz.quizFetched
 import com.example.quizapp.presentation.util.Dimens
 
 @Preview(apiLevel = 34)
