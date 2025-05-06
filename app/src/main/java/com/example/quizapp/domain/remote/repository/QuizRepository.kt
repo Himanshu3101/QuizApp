@@ -1,6 +1,6 @@
-package com.example.quizapp.domain.repository
+package com.example.quizapp.domain.remote.repository
 
-import com.example.quizapp.domain.model.Quiz
+import com.example.quizapp.domain.remote.model.Quiz
 
 interface QuizRepository {
 

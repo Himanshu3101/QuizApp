@@ -30,6 +30,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.quizapp.R
+import com.example.quizapp.presentation.User.DCStateUser
 import com.example.quizapp.presentation.common.ButtonBox
 import com.example.quizapp.presentation.common.QuizAppBar
 import com.example.quizapp.presentation.nav_graph.Routes
@@ -50,9 +51,6 @@ import kotlinx.coroutines.launch
 )
 @Composable
 fun PrevQuiz() {
-
-    val navController = rememberNavController()
-
     QuizScreen(
         numOfQuiz = 10,
         quizCategory = "General Knowledge",
@@ -60,8 +58,8 @@ fun PrevQuiz() {
         quizType = "Multiple Choice",
         event = {},
         state = dc_StateQuizScreen(),
-
-        navController = navController
+        navController = rememberNavController(),
+        userInfo = DCStateUser()
     )
 }
 
@@ -73,7 +71,8 @@ fun QuizScreen(
     quizType: String,
     event: (sc_EventQuizScreen) -> Unit,
     state: dc_StateQuizScreen,
-    navController: NavController
+    navController: NavController,
+    userInfo : DCStateUser
 ) {
 
     BackHandler {
@@ -81,6 +80,9 @@ fun QuizScreen(
             popUpTo(Routes.HomeScreen.route){inclusive = true}
         }
     }
+
+
+
     LaunchedEffect(key1 = Unit) {
         val difficulty = when (quizDifficulty) {
             "Medium" -> "medium"
@@ -208,8 +210,16 @@ fun QuizScreen(
                     ) {
                         if (pagerState.currentPage == state.quizState.size - 1) {
                             // TODO
+                            event(sc_EventQuizScreen.userSavedDB(userInfo.toUser(numOfQuiz, quizCategory, quizDifficulty, quizType, state.score, state.quizState.size - state.score)))
+                            Log.d("user121", "username=${userInfo.userName}, occupation=${userInfo.occupation}, city=${userInfo.city}")
+
+                            Log.d("ScoreLog", state.score.toString())
+
                             navController.navigate(Routes.ScoreScreen.passNumOfQuesAndCorrectAnswer(state.quizState.size, state.score ))
-                                Log.d("ScoreLog", state.score.toString())
+
+
+
+
                         } else {
                             scope.launch {
                                 pagerState.animateScrollToPage(pagerState.currentPage + 1)

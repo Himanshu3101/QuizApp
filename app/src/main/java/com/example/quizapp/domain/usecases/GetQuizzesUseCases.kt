@@ -1,8 +1,8 @@
 package com.example.quizapp.domain.usecases
 
 import com.example.quizapp.common.Resources
-import com.example.quizapp.domain.model.Quiz
-import com.example.quizapp.domain.repository.QuizRepository
+import com.example.quizapp.domain.remote.model.Quiz
+import com.example.quizapp.domain.remote.repository.QuizRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

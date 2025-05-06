@@ -1,0 +1,21 @@
+package com.example.quizapp.data.local.Entity
+
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+
+@Entity(tableName = "user_table")
+data class UserEntity(
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
+    val name: String = "",
+    val occupation: String = "",
+    val city: String = "",
+    val noOfQuestion: Int = 0,
+    val category: String = "",
+    val difficulty: String = "",
+    val type: String = "",
+    val correctAnswer: Int = 0,
+    val incorrectAnswers: Int = 0,
+    val percentage: Double = 0.0
+)

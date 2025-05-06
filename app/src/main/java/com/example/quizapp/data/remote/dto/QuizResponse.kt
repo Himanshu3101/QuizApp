@@ -1,6 +1,6 @@
 package com.example.quizapp.data.remote.dto
 
-import com.example.quizapp.domain.model.Quiz
+import com.example.quizapp.domain.remote.model.Quiz
 
 
 

@@ -48,14 +48,11 @@ fun ScoreScreen(
     noOfQuestion: Int,
     noOfCorrectAnswer: Int,
     navController: NavController,
-    userInfo: DCStateUser
 ){
 
     BackHandler {
         goToHome(navController)
     }
-
-    Log.d("user121", "username=${userInfo.userName}, occupation=${userInfo.occupation}, city=${userInfo.city}")
 
     Column(
         modifier = Modifier

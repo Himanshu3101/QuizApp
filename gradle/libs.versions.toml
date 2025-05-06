@@ -18,6 +18,7 @@ composeBom = "2024.04.01"
 navigationCompose = "2.8.9"
 kotlin = "2.1.20"
 ksp = "2.1.20-1.0.31"
+roomCompiler = "2.7.1"
 
 
 [libraries]
@@ -54,6 +55,12 @@ androidx-foundation = { module = "androidx.compose.foundation:foundation", versi
 accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanistSystemuicontroller" }
 #// lottie - for Animation
 lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottieCompose" }
+#ROOM
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomCompiler" }
+roomRuntime = { group = "androidx.room", name = "room-runtime", version.ref = "roomCompiler" }
+#roomKtx = { group = "androidx.room", name = "room-ktx", version.ref = "roomCompiler" }
+
+
 
 
 [plugins]

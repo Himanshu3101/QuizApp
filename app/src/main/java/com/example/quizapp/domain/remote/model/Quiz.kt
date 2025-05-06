@@ -1,4 +1,4 @@
-package com.example.quizapp.domain.model
+package com.example.quizapp.domain.remote.model
 
 data class Quiz(
     val category: String,

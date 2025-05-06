@@ -4,5 +4,5 @@ data class DCStateUser(
     val userName : String = "",
     val occupation : String = "",
     val city : String = "",
-    val error : String = ""
+    val error : String = "",
 )

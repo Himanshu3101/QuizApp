@@ -4,10 +4,13 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.quizapp.common.Resources
-import com.example.quizapp.domain.model.Quiz
+import com.example.quizapp.domain.local.User
+import com.example.quizapp.domain.remote.model.Quiz
+import com.example.quizapp.domain.usecases.DBSaveUserUseCase
 import com.example.quizapp.domain.usecases.GetQuizzesUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -16,10 +19,18 @@ import javax.inject.Inject
 //on Video for Data and Domain layer - recap On 1:59:00 - https://www.youtube.com/watch?v=WYHuLJVEaLc
 
 @HiltViewModel
-class QuizViewModel @Inject constructor(private val getQuizzesUseCases: GetQuizzesUseCases) : ViewModel() {
+class QuizViewModel @Inject constructor(
+    private val getQuizzesUseCases: GetQuizzesUseCases,
+    private val dbSaveUserUseCase: DBSaveUserUseCase
+) : ViewModel() {
 
     private val _quizList = MutableStateFlow(dc_StateQuizScreen())
     val quizList = _quizList.asStateFlow()
+
+    private val _saveResult = MutableStateFlow<Result<Unit>?>(null)
+    val saveResult: StateFlow<Result<Unit>?> = _saveResult
+
+
 
     fun onEvent(event: sc_EventQuizScreen){
         when(event) {
@@ -29,6 +40,16 @@ class QuizViewModel @Inject constructor(private val getQuizzesUseCases: GetQuizz
             is sc_EventQuizScreen.SetOptionSelected -> {
                 updateQuizStateList(event.quizStateIndex, event.selectedOption)
             }
+            is sc_EventQuizScreen.userSavedDB -> {
+                saveUser(event.user)
+            }
+        }
+    }
+
+    fun saveUser(user: User) {
+        viewModelScope.launch {
+            val result = dbSaveUserUseCase(user)
+            _saveResult.value = result
         }
     }
 

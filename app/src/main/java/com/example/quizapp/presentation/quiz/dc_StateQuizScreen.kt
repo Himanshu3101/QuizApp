@@ -1,6 +1,6 @@
 package com.example.quizapp.presentation.quiz
 
-import com.example.quizapp.domain.model.Quiz
+import com.example.quizapp.domain.remote.model.Quiz
 
 data class dc_StateQuizScreen(
     val isLoading : Boolean = false,
@@ -10,7 +10,7 @@ data class dc_StateQuizScreen(
 )
 
 data class QuizState(
-    val quiz : Quiz ?= null,
+    val quiz : Quiz?= null,
     val shuffledOptions : List<String> = emptyList(),
     val selectedOption : Int ?= -1
 )

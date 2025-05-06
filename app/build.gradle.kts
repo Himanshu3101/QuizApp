@@ -65,6 +65,12 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+    //Room
+    implementation(libs.androidx.room.compiler){
+        exclude(group = "com.intellij", module = "annotations")
+    }
+    implementation(libs.roomRuntime)
+//    implementation(libs.roomKtx)
 
     //Splash Api
     implementation (libs.androidx.core.splashscreen)

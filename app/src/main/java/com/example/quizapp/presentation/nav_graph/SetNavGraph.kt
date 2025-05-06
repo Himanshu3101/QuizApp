@@ -63,7 +63,7 @@ fun SetNavGraph() {
 
             val quizViewModel : QuizViewModel = hiltViewModel()
             val state by quizViewModel.quizList.collectAsState()
-
+            val user = sharedViewModel.userData.value
             QuizScreen(
                 numOfQuiz = numOfQuizzes!!,
                 quizCategory = category!!,
@@ -71,7 +71,8 @@ fun SetNavGraph() {
                 quizType = type!!,
                 event = quizViewModel::onEvent, //Or use Old version -> { quizViewModel.onEvent(it) }
                 state = state,
-                navController = navController
+                navController = navController,
+                userInfo = user,
             )
         }
 
@@ -85,12 +86,11 @@ fun SetNavGraph() {
         ) {
             val numOfQuestions = it.arguments?.getInt(NOQ_KEY)
             val numOfCorrectAns = it.arguments?.getInt(CORRECT_ANS_KEY)
-            val user = sharedViewModel.userData.value
+
             ScoreScreen(
                 noOfQuestion = numOfQuestions!!,
                 noOfCorrectAnswer = numOfCorrectAns!!,
                 navController = navController,
-                userInfo = user,
             )
         }
     }

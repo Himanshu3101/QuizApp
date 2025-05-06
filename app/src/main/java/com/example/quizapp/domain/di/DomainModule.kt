@@ -2,7 +2,7 @@ package com.example.quizapp.domain.di
 
 import com.example.quizapp.data.remote.QuizApi
 import com.example.quizapp.data.repository.QuizRepositoryImpl
-import com.example.quizapp.domain.repository.QuizRepository
+import com.example.quizapp.domain.remote.repository.QuizRepository
 import com.example.quizapp.domain.usecases.GetQuizzesUseCases
 import dagger.Module
 import dagger.Provides
