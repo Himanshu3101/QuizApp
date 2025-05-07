@@ -39,7 +39,7 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.quizapp.R
-import com.example.quizapp.presentation.User.DCStateUser
+//import com.example.quizapp.presentation.User.DCStateUser
 import com.example.quizapp.presentation.nav_graph.Routes
 import com.example.quizapp.presentation.util.Dimens
 

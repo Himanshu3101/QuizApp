@@ -58,7 +58,7 @@ lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "
 #ROOM
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomCompiler" }
 roomRuntime = { group = "androidx.room", name = "room-runtime", version.ref = "roomCompiler" }
-#roomKtx = { group = "androidx.room", name = "room-ktx", version.ref = "roomCompiler" }
+roomKtx = { group = "androidx.room", name = "room-ktx", version.ref = "roomCompiler" }
 
 
 

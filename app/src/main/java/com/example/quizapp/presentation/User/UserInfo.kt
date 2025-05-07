@@ -30,20 +30,21 @@ import com.example.quizapp.R
 import com.example.quizapp.presentation.common.PageHeader
 import com.example.quizapp.presentation.common.ButtonBox
 import com.example.quizapp.presentation.nav_graph.Routes
+import com.example.quizapp.presentation.quiz.dc_StateQuizScreen
 import com.example.quizapp.presentation.util.Dimens
 
 @Preview(apiLevel = 34)
 @Composable
 fun Prev() {
-    UserInfo(navController = rememberNavController(), state = DCStateUser(), event = { }, onSaveUser = {})
+    UserInfo(navController = rememberNavController(), state = dc_StateQuizScreen(), event = { }, onSaveUser = {})
 }
 
 @Composable
 fun UserInfo(
     navController: NavHostController,
-    state: DCStateUser,
+    state: dc_StateQuizScreen,
     event: (EventUserScreen) -> Unit,
-    onSaveUser: (DCStateUser) -> Unit
+    onSaveUser: (dc_StateQuizScreen) -> Unit
 ) {
 
     var showError by remember { mutableStateOf(false) }
@@ -178,7 +179,7 @@ fun UserInfo(
 }
 
 
-fun isFormValid(state: DCStateUser): Boolean {
+fun isFormValid(state: dc_StateQuizScreen): Boolean {
     return state.userName.isNotBlank() &&
             state.city.isNotBlank() &&
             state.occupation.isNotBlank()

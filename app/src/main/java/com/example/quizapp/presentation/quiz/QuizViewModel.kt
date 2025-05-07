@@ -9,6 +9,7 @@ import com.example.quizapp.domain.remote.model.Quiz
 import com.example.quizapp.domain.usecases.DBSaveUserUseCase
 import com.example.quizapp.domain.usecases.GetQuizzesUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -40,14 +41,11 @@ class QuizViewModel @Inject constructor(
             is sc_EventQuizScreen.SetOptionSelected -> {
                 updateQuizStateList(event.quizStateIndex, event.selectedOption)
             }
-            is sc_EventQuizScreen.userSavedDB -> {
-                saveUser(event.user)
-            }
         }
     }
 
     fun saveUser(user: User) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val result = dbSaveUserUseCase(user)
             _saveResult.value = result
         }

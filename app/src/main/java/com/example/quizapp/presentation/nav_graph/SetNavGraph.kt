@@ -1,5 +1,6 @@
 package com.example.quizapp.presentation.nav_graph
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -64,6 +65,7 @@ fun SetNavGraph() {
             val quizViewModel : QuizViewModel = hiltViewModel()
             val state by quizViewModel.quizList.collectAsState()
             val user = sharedViewModel.userData.value
+            Log.d("setNavGraphLog", user.toString())
             QuizScreen(
                 numOfQuiz = numOfQuizzes!!,
                 quizCategory = category!!,
@@ -72,7 +74,7 @@ fun SetNavGraph() {
                 event = quizViewModel::onEvent, //Or use Old version -> { quizViewModel.onEvent(it) }
                 state = state,
                 navController = navController,
-                userInfo = user,
+//                userInfo = user,
             )
         }
 

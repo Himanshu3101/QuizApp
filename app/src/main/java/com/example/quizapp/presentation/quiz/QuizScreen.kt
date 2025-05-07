@@ -30,9 +30,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.quizapp.R
-import com.example.quizapp.presentation.User.DCStateUser
+//import com.example.quizapp.presentation.User.DCStateUser
 import com.example.quizapp.presentation.common.ButtonBox
 import com.example.quizapp.presentation.common.QuizAppBar
+import com.example.quizapp.presentation.home.dc_StateHomeScreen
 import com.example.quizapp.presentation.nav_graph.Routes
 import com.example.quizapp.presentation.quiz.component.QuizInterface
 import com.example.quizapp.presentation.quiz.component.ShimmerEffectQuizInterface
@@ -59,7 +60,7 @@ fun PrevQuiz() {
         event = {},
         state = dc_StateQuizScreen(),
         navController = rememberNavController(),
-        userInfo = DCStateUser()
+//        userInfo = DCStateUser()
     )
 }
 
@@ -72,7 +73,7 @@ fun QuizScreen(
     event: (sc_EventQuizScreen) -> Unit,
     state: dc_StateQuizScreen,
     navController: NavController,
-    userInfo : DCStateUser
+//    userInfo : dc_StateHomeScreen
 ) {
 
     BackHandler {
@@ -210,10 +211,15 @@ fun QuizScreen(
                     ) {
                         if (pagerState.currentPage == state.quizState.size - 1) {
                             // TODO
-                            event(sc_EventQuizScreen.userSavedDB(userInfo.toUser(numOfQuiz, quizCategory, quizDifficulty, quizType, state.score, state.quizState.size - state.score)))
-                            Log.d("user121", "username=${userInfo.userName}, occupation=${userInfo.occupation}, city=${userInfo.city}")
+//                            userInfo.toUser(numOfQuiz, quizCategory, quizDifficulty, quizType, state.score, state.quizState.size - state.score)))
 
-                            Log.d("ScoreLog", state.score.toString())
+//                            Log.d("user121", "username=${userInfo.userName}, occupation=${userInfo.occupation}, city=${userInfo.city}")
+
+//                            Log.d("user121", "username=${state.userName}, occupation=${state.occupation}, city=${state.city}")
+
+
+
+                            Log.d("ScoreLog", state.toString())
 
                             navController.navigate(Routes.ScoreScreen.passNumOfQuesAndCorrectAnswer(state.quizState.size, state.score ))
 
