@@ -1,36 +1,34 @@
 package com.example.quizapp.data.local.mapping
 
 import com.example.quizapp.data.local.Entity.UserEntity
-import com.example.quizapp.domain.local.User
+import com.example.quizapp.domain.local.model.UserSession
 
-fun UserEntity.toDomain(): User {
-    return User(
-        id = id,
-        name = name,
+fun UserEntity.toDomain(): UserSession {
+    return UserSession(
+        name = userName,
         occupation = occupation,
         city = city,
-        noOfQuestion = noOfQuestion,
+        noOfQuestion = numberOfQuiz,
         category = category,
         difficulty = difficulty,
         type = type,
         correctAnswer = correctAnswer,
         incorrectAnswers = incorrectAnswers,
-        percentage = percentage
+        percentage = score
     )
 }
 
-fun User.toEntity() : UserEntity{
+fun UserSession.toEntity() : UserEntity{
     return UserEntity(
-        id = id,
-        name = name,
+        userName = name,
         occupation = occupation,
         city = city,
-        noOfQuestion = noOfQuestion,
+        numberOfQuiz = noOfQuestion,
         category = category,
         difficulty = difficulty,
         type = type,
         correctAnswer = correctAnswer,
         incorrectAnswers = incorrectAnswers,
-        percentage = percentage
+        score = percentage
     )
 }

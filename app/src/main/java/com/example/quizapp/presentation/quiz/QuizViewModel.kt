@@ -4,12 +4,10 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.quizapp.common.Resources
-import com.example.quizapp.domain.local.User
+import com.example.quizapp.data.session.QuizSessionManager
 import com.example.quizapp.domain.remote.model.Quiz
-import com.example.quizapp.domain.usecases.DBSaveUserUseCase
 import com.example.quizapp.domain.usecases.GetQuizzesUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -22,7 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class QuizViewModel @Inject constructor(
     private val getQuizzesUseCases: GetQuizzesUseCases,
-    private val dbSaveUserUseCase: DBSaveUserUseCase
+//    private val quizSessionManager: QuizSessionManager
 ) : ViewModel() {
 
     private val _quizList = MutableStateFlow(dc_StateQuizScreen())
@@ -44,12 +42,12 @@ class QuizViewModel @Inject constructor(
         }
     }
 
-    fun saveUser(user: User) {
+   /* fun saveUser(user: User) {
         viewModelScope.launch(Dispatchers.IO) {
             val result = dbSaveUserUseCase(user)
             _saveResult.value = result
         }
-    }
+    }*/
 
     private fun updateQuizStateList(quizStateIndex: Int, selectedOption: Int) {
         val updateQuizStateList = mutableListOf<QuizState>()

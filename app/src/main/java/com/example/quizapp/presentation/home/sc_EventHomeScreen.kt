@@ -6,4 +6,5 @@ sealed class sc_EventHomeScreen {
     data class SetQuizCategory(val category: String) : sc_EventHomeScreen()
     data class SetQuizDifficult(val difficulty: String) : sc_EventHomeScreen()
     data class SetQuizType(val type: String) : sc_EventHomeScreen()
+    object saveGenerateQuiz : sc_EventHomeScreen()
 }

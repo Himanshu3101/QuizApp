@@ -6,12 +6,7 @@ data class dc_StateQuizScreen(
     val isLoading : Boolean = false,
     val quizState : List<QuizState>  = emptyList(),
     val error : String = "",
-    val score : Int = 0,
-
-
-    val userName : String = "",
-    val occupation : String = "",
-    val city : String = "",
+    val score : Int = 0
 )
 
 data class QuizState(

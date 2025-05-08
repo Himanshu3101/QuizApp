@@ -2,15 +2,15 @@ package com.example.quizapp.data.local.repository
 
 import com.example.quizapp.data.local.DAO.UserDao
 import com.example.quizapp.data.local.mapping.toEntity
-import com.example.quizapp.domain.local.User
+import com.example.quizapp.domain.local.model.UserSession
 import com.example.quizapp.domain.local.UserRepository
 import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(private val userDao: UserDao) : UserRepository {
 
-    override suspend fun saveUser(user: User) : Result<Unit> {
+    override suspend fun saveUser(userSession: UserSession) : Result<Unit> {
         return try{
-            val id = userDao.insertUser(user.toEntity())
+            val id = userDao.insertUser(userSession.toEntity())
             if(id > 0) Result.success(Unit) else Result.failure(Exception("Failed to insert user"))
         }catch(e:Exception){
             Result.failure(e)

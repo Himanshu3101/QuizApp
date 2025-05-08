@@ -14,6 +14,7 @@ import com.example.quizapp.presentation.User.UserInfo
 import com.example.quizapp.presentation.User.UserViewModel
 import com.example.quizapp.presentation.home.HomeScreen
 import com.example.quizapp.presentation.home.HomeScreenViewModel
+import com.example.quizapp.presentation.home.dc_StateHomeScreen
 import com.example.quizapp.presentation.quiz.QuizScreen
 import com.example.quizapp.presentation.quiz.QuizViewModel
 import com.example.quizapp.presentation.score.ScoreScreen
@@ -22,18 +23,15 @@ import com.example.quizapp.presentation.score.ScoreScreen
 fun SetNavGraph() {
 
     val navController = rememberNavController()
-    val sharedViewModel : SharedViewModel = hiltViewModel()
 
     NavHost(navController = navController, startDestination = Routes.UserScreen.route){
         composable(route = Routes.UserScreen.route){
             val viewModel : UserViewModel = hiltViewModel()
             val state by viewModel.userState.collectAsState()
-            UserInfo(state = state,
+            UserInfo(
+                state = state,
                 event = viewModel :: onEvent,
                 navController = navController,
-                onSaveUser = {
-                    sharedViewModel.setUserData(it)
-                }
             )
         }
 
@@ -64,8 +62,6 @@ fun SetNavGraph() {
 
             val quizViewModel : QuizViewModel = hiltViewModel()
             val state by quizViewModel.quizList.collectAsState()
-            val user = sharedViewModel.userData.value
-            Log.d("setNavGraphLog", user.toString())
             QuizScreen(
                 numOfQuiz = numOfQuizzes!!,
                 quizCategory = category!!,
@@ -74,7 +70,6 @@ fun SetNavGraph() {
                 event = quizViewModel::onEvent, //Or use Old version -> { quizViewModel.onEvent(it) }
                 state = state,
                 navController = navController,
-//                userInfo = user,
             )
         }
 

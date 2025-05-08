@@ -27,24 +27,23 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.quizapp.R
+import com.example.quizapp.domain.local.model.UserSession
 import com.example.quizapp.presentation.common.PageHeader
 import com.example.quizapp.presentation.common.ButtonBox
 import com.example.quizapp.presentation.nav_graph.Routes
-import com.example.quizapp.presentation.quiz.dc_StateQuizScreen
 import com.example.quizapp.presentation.util.Dimens
 
 @Preview(apiLevel = 34)
 @Composable
 fun Prev() {
-    UserInfo(navController = rememberNavController(), state = dc_StateQuizScreen(), event = { }, onSaveUser = {})
+    UserInfo(navController = rememberNavController(), state = DCStateUser(), event = { })
 }
 
 @Composable
 fun UserInfo(
     navController: NavHostController,
-    state: dc_StateQuizScreen,
+    state: DCStateUser,
     event: (EventUserScreen) -> Unit,
-    onSaveUser: (dc_StateQuizScreen) -> Unit
 ) {
 
     var showError by remember { mutableStateOf(false) }
@@ -167,7 +166,7 @@ fun UserInfo(
                 containerColor = colorResource(id = R.color.orange),
             ) {
                 if (isValid) {
-                    onSaveUser(state)
+                    event(EventUserScreen.SaveUserInfo)
                     navController.navigate(Routes.HomeScreen.route)
                 } else {
                    showError = true
@@ -179,7 +178,7 @@ fun UserInfo(
 }
 
 
-fun isFormValid(state: dc_StateQuizScreen): Boolean {
+fun isFormValid(state: DCStateUser): Boolean {
     return state.userName.isNotBlank() &&
             state.city.isNotBlank() &&
             state.occupation.isNotBlank()

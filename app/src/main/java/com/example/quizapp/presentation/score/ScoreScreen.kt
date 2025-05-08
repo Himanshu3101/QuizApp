@@ -39,6 +39,8 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.quizapp.R
+import com.example.quizapp.presentation.User.DCStateUser
+import com.example.quizapp.presentation.home.dc_StateHomeScreen
 //import com.example.quizapp.presentation.User.DCStateUser
 import com.example.quizapp.presentation.nav_graph.Routes
 import com.example.quizapp.presentation.util.Dimens
@@ -115,6 +117,12 @@ fun ScoreScreen(
                 }
 
                 val scorePercentage = calculatePercentage(noOfCorrectAnswer, noOfQuestion)
+
+//                Log.e("ScoreScreen", "ScorePercentage = $scorePercentage, noOfCorrectAnswer = $noOfCorrectAnswer, noOfQuestion = $noOfQuestion}")
+
+
+
+
                 LottieAnimation(
                     modifier = Modifier.size(Dimens.LargeLottieAnimSize),
                     composition = composition,

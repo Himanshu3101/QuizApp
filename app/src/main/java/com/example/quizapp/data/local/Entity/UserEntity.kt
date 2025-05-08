@@ -8,14 +8,17 @@ import androidx.room.PrimaryKey
 data class UserEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
-    val name: String = "",
+
+    val userName: String = "",
     val occupation: String = "",
     val city: String = "",
-    val noOfQuestion: Int = 0,
+
+    val numberOfQuiz: Int = 0,
     val category: String = "",
     val difficulty: String = "",
     val type: String = "",
+
     val correctAnswer: Int = 0,
     val incorrectAnswers: Int = 0,
-    val percentage: Double = 0.0
+    val score: Int = 0
 )

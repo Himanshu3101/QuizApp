@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.quizapp.presentation.User.EventUserScreen
 import com.example.quizapp.presentation.common.AppDropDownMenu
 import com.example.quizapp.presentation.common.ButtonBox
 import com.example.quizapp.presentation.home.component.HomeHeader
@@ -77,6 +78,7 @@ fun HomeScreen(
         Spacer(modifier = Modifier.height(MediumSpacerHeight))
 
         ButtonBox(text = "Generate Quiz", padding = MediumPadding) {
+            event(sc_EventHomeScreen.saveGenerateQuiz)
             navController.navigate(
                 route = Routes.QuizScreen.passQuizParams(
                     numOfQuizzes = state.numberOfQuiz,

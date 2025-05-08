@@ -30,6 +30,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.quizapp.R
+import com.example.quizapp.presentation.User.DCStateUser
+import com.example.quizapp.presentation.User.EventUserScreen
 //import com.example.quizapp.presentation.User.DCStateUser
 import com.example.quizapp.presentation.common.ButtonBox
 import com.example.quizapp.presentation.common.QuizAppBar
@@ -47,9 +49,9 @@ import kotlinx.coroutines.launch
 /*TODO("We can implement sharedViewModel logic here bcoz we need same data from home screen but here,
    we need only 3. So, we can use shared View Model but here we are passing data directly.")*/
 
-@Preview(
-    apiLevel = 34
-)
+//@Preview(
+//    apiLevel = 34
+//)
 @Composable
 fun PrevQuiz() {
     QuizScreen(
@@ -60,7 +62,6 @@ fun PrevQuiz() {
         event = {},
         state = dc_StateQuizScreen(),
         navController = rememberNavController(),
-//        userInfo = DCStateUser()
     )
 }
 
@@ -72,8 +73,7 @@ fun QuizScreen(
     quizType: String,
     event: (sc_EventQuizScreen) -> Unit,
     state: dc_StateQuizScreen,
-    navController: NavController,
-//    userInfo : dc_StateHomeScreen
+    navController: NavController
 ) {
 
     BackHandler {
@@ -210,22 +210,7 @@ fun QuizScreen(
                         fontSize = Dimens.SmallTextSize
                     ) {
                         if (pagerState.currentPage == state.quizState.size - 1) {
-                            // TODO
-//                            userInfo.toUser(numOfQuiz, quizCategory, quizDifficulty, quizType, state.score, state.quizState.size - state.score)))
-
-//                            Log.d("user121", "username=${userInfo.userName}, occupation=${userInfo.occupation}, city=${userInfo.city}")
-
-//                            Log.d("user121", "username=${state.userName}, occupation=${state.occupation}, city=${state.city}")
-
-
-
-                            Log.d("ScoreLog", state.toString())
-
                             navController.navigate(Routes.ScoreScreen.passNumOfQuesAndCorrectAnswer(state.quizState.size, state.score ))
-
-
-
-
                         } else {
                             scope.launch {
                                 pagerState.animateScrollToPage(pagerState.currentPage + 1)
