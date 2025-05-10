@@ -20,16 +20,10 @@ import javax.inject.Inject
 @HiltViewModel
 class QuizViewModel @Inject constructor(
     private val getQuizzesUseCases: GetQuizzesUseCases,
-//    private val quizSessionManager: QuizSessionManager
 ) : ViewModel() {
 
     private val _quizList = MutableStateFlow(dc_StateQuizScreen())
     val quizList = _quizList.asStateFlow()
-
-    private val _saveResult = MutableStateFlow<Result<Unit>?>(null)
-    val saveResult: StateFlow<Result<Unit>?> = _saveResult
-
-
 
     fun onEvent(event: sc_EventQuizScreen){
         when(event) {
@@ -41,13 +35,6 @@ class QuizViewModel @Inject constructor(
             }
         }
     }
-
-   /* fun saveUser(user: User) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val result = dbSaveUserUseCase(user)
-            _saveResult.value = result
-        }
-    }*/
 
     private fun updateQuizStateList(quizStateIndex: Int, selectedOption: Int) {
         val updateQuizStateList = mutableListOf<QuizState>()

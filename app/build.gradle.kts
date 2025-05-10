@@ -29,7 +29,11 @@ android {
                 "proguard-rules.pro"
             )
         }
+        getByName("debug") {
+            isDebuggable = true
+        }
     }
+
     packagingOptions {
         resources {
             excludes += "META-INF/gradle/incremental.annotation.processors"

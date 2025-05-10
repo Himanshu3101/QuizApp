@@ -1,5 +1,6 @@
 package com.example.quizapp.data.local.repository
 
+import android.util.Log
 import com.example.quizapp.data.local.DAO.UserDao
 import com.example.quizapp.data.local.mapping.toEntity
 import com.example.quizapp.domain.local.model.UserSession
@@ -11,10 +12,10 @@ class UserRepositoryImpl @Inject constructor(private val userDao: UserDao) : Use
     override suspend fun saveUser(userSession: UserSession) : Result<Unit> {
         return try{
             val id = userDao.insertUser(userSession.toEntity())
+            Log.d("UserRepositoryImpl", "Inserted user with id: $id")
             if(id > 0) Result.success(Unit) else Result.failure(Exception("Failed to insert user"))
         }catch(e:Exception){
             Result.failure(e)
         }
-    /*userDao.insertUser(user.toEntity())*/
     }
 }

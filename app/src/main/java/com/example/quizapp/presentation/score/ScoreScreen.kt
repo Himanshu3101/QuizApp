@@ -49,8 +49,6 @@ import com.example.quizapp.presentation.util.Dimens
 
 @Composable
 fun ScoreScreen(
-    /* noOfQuestion: Int,
-     noOfCorrectAnswer: Int,*/
     state: dc_ScoreScreen,
     event: (SC_EventScoreScreen) -> Unit,
     navController: NavController,
