@@ -18,6 +18,7 @@ import com.example.quizapp.presentation.home.dc_StateHomeScreen
 import com.example.quizapp.presentation.quiz.QuizScreen
 import com.example.quizapp.presentation.quiz.QuizViewModel
 import com.example.quizapp.presentation.score.ScoreScreen
+import com.example.quizapp.presentation.score.ScoreScreenVM
 
 @Composable
 fun SetNavGraph() {
@@ -84,9 +85,13 @@ fun SetNavGraph() {
             val numOfQuestions = it.arguments?.getInt(NOQ_KEY)
             val numOfCorrectAns = it.arguments?.getInt(CORRECT_ANS_KEY)
 
+            val scoreScreenVM : ScoreScreenVM = hiltViewModel()
+            val state by scoreScreenVM.scoreScreenData.collectAsState()
             ScoreScreen(
-                noOfQuestion = numOfQuestions!!,
-                noOfCorrectAnswer = numOfCorrectAns!!,
+                state = state.copy(
+                    noOfQuestion = numOfQuestions!!,
+                    noOfCorrectAnswer = numOfCorrectAns!!),
+                event = scoreScreenVM::onEvent,
                 navController = navController,
             )
         }

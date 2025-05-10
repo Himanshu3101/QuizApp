@@ -5,30 +5,28 @@ import com.example.quizapp.domain.local.model.UserSession
 
 fun UserEntity.toDomain(): UserSession {
     return UserSession(
-        name = userName,
+        userName = userName,
         occupation = occupation,
         city = city,
         noOfQuestion = numberOfQuiz,
         category = category,
         difficulty = difficulty,
         type = type,
-        correctAnswer = correctAnswer,
-        incorrectAnswers = incorrectAnswers,
-        percentage = score
+        noOfCorrectAnswer = correctAnswer,
+        scorePercentage = scorePercentage
     )
 }
 
 fun UserSession.toEntity() : UserEntity{
     return UserEntity(
-        userName = name,
+        userName = userName,
         occupation = occupation,
         city = city,
         numberOfQuiz = noOfQuestion,
         category = category,
         difficulty = difficulty,
         type = type,
-        correctAnswer = correctAnswer,
-        incorrectAnswers = incorrectAnswers,
-        score = percentage
+        correctAnswer = noOfCorrectAnswer,
+        scorePercentage = scorePercentage
     )
 }

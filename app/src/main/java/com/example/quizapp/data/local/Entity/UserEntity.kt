@@ -19,6 +19,5 @@ data class UserEntity(
     val type: String = "",
 
     val correctAnswer: Int = 0,
-    val incorrectAnswers: Int = 0,
-    val score: Int = 0
+    val scorePercentage: Int = 0
 )

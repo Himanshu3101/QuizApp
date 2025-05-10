@@ -5,9 +5,8 @@ data class UserSession(
     val occupation: String = "",
     val city: String = "",
 
-    val correctAnswer: Int = 0,
-    val incorrectAnswers: Int = 0,
-    val percentage: Int = 0,
+    val noOfCorrectAnswer: Int = 0,
+    val scorePercentage: Int = 0,
 
     val noOfQuestion: Int = 0,
     val category: String = "",

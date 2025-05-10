@@ -1,14 +1,14 @@
 package com.example.quizapp.presentation.home
 
 import androidx.lifecycle.ViewModel
-import com.example.quizapp.data.session.QuizSessionManager
+import com.example.quizapp.domain.local.SessionManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeScreenViewModel @Inject constructor(
-    private val quizSessionManager: QuizSessionManager
+    private val sessionManager: SessionManager
 ) : ViewModel() {
 
     private val _homeState = MutableStateFlow(dc_StateHomeScreen())
@@ -29,7 +29,7 @@ class HomeScreenViewModel @Inject constructor(
                 _homeState.value = homeState.value.copy(type = event.type)
             }
             is sc_EventHomeScreen.saveGenerateQuiz ->{
-                quizSessionManager.updateSession {
+                sessionManager.updateSession {
                     copy(
                         noOfQuestion = homeState.value.numberOfQuiz,
                         category = homeState.value.category,

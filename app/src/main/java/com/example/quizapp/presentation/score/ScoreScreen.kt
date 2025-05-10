@@ -21,6 +21,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -41,16 +42,26 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.quizapp.R
 import com.example.quizapp.presentation.User.DCStateUser
 import com.example.quizapp.presentation.home.dc_StateHomeScreen
+import com.example.quizapp.presentation.home.sc_EventHomeScreen
 //import com.example.quizapp.presentation.User.DCStateUser
 import com.example.quizapp.presentation.nav_graph.Routes
 import com.example.quizapp.presentation.util.Dimens
 
 @Composable
 fun ScoreScreen(
-    noOfQuestion: Int,
-    noOfCorrectAnswer: Int,
+    /* noOfQuestion: Int,
+     noOfCorrectAnswer: Int,*/
+    state: dc_ScoreScreen,
+    event: (SC_EventScoreScreen) -> Unit,
     navController: NavController,
-){
+) {
+
+
+    LaunchedEffect(key1 = state.noOfCorrectAnswer, key2 = state.noOfQuestion) {
+        if (state.noOfCorrectAnswer > 0 && state.noOfQuestion > 0) {
+            event(SC_EventScoreScreen.SaveScore)
+        }
+    }
 
     BackHandler {
         goToHome(navController)
@@ -61,12 +72,12 @@ fun ScoreScreen(
             .fillMaxSize()
             .padding(horizontal = Dimens.MediumPadding),
         verticalArrangement = Arrangement.Center
-    ){
+    ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.End
-        ){
+        ) {
             IconButton(
                 onClick = {
                     goToHome(navController)
@@ -89,8 +100,8 @@ fun ScoreScreen(
                 .clip(RoundedCornerShape(Dimens.MediumCornerRadius))
                 .background(colorResource(R.color.blue_grey)),
             contentAlignment = Alignment.Center
-        ){
-            Column (
+        ) {
+            Column(
                 modifier = Modifier.padding(
                     horizontal = Dimens.MediumPadding,
                     vertical = Dimens.MediumPadding
@@ -99,28 +110,28 @@ fun ScoreScreen(
             ) {
                 val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.congra))
                 val annotatedString = buildAnnotatedString {
-                    withStyle(style = SpanStyle(Color.Black)){
+                    withStyle(style = SpanStyle(Color.Black)) {
                         append("You attempted ")
                     }
-                    withStyle(style = SpanStyle(Color.Blue)){
-                        append("$noOfQuestion questions ")
+                    withStyle(style = SpanStyle(Color.Blue)) {
+                        append("${state.noOfQuestion} questions ")
                     }
-                    withStyle(style = SpanStyle(Color.Black)){
+                    withStyle(style = SpanStyle(Color.Black)) {
                         append("and from that ")
                     }
-                    withStyle(style = SpanStyle(Color.Black)){
-                        append("$noOfCorrectAnswer answers ")
+                    withStyle(style = SpanStyle(Color.Black)) {
+                        append("${state.noOfCorrectAnswer} answers ")
                     }
-                    withStyle(style = SpanStyle(Color.Black)){
+                    withStyle(style = SpanStyle(Color.Black)) {
                         append("are correct")
                     }
+
+                    event(SC_EventScoreScreen.saveNoCorrect(state.noOfCorrectAnswer))
+                    event(SC_EventScoreScreen.saveNoOfQuestion(state.noOfQuestion))
                 }
 
-                val scorePercentage = calculatePercentage(noOfCorrectAnswer, noOfQuestion)
-
-//                Log.e("ScoreScreen", "ScorePercentage = $scorePercentage, noOfCorrectAnswer = $noOfCorrectAnswer, noOfQuestion = $noOfQuestion}")
-
-
+                val percentage = calculatePercentage(state.noOfCorrectAnswer, state.noOfQuestion)
+                event(SC_EventScoreScreen.savePercentage(percentage.toInt()))
 
 
                 LottieAnimation(
@@ -141,7 +152,7 @@ fun ScoreScreen(
                 Spacer(modifier = Modifier.height(Dimens.MediumSpacerHeight))
 
                 Text(
-                    text = "$scorePercentage% Score",
+                    text = "${state.scorePercentage}% Score",
                     color = colorResource(id = R.color.green),
                     style = MaterialTheme.typography.titleMedium,
                     fontSize = Dimens.LargeTextSize,
@@ -171,7 +182,7 @@ fun ScoreScreen(
 
                 Spacer(modifier = Modifier.height(Dimens.LargeSpacerHeight))
 
-                Row (
+                Row(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
@@ -216,14 +227,14 @@ fun ScoreScreen(
     }
 }
 
-fun goToHome(navController : NavController){
-    navController.navigate(Routes.HomeScreen.route){
-        popUpTo(Routes.HomeScreen.route){inclusive = true}
+fun goToHome(navController: NavController) {
+    navController.navigate(Routes.HomeScreen.route) {
+        popUpTo(Routes.HomeScreen.route) { inclusive = true }
     }
 }
 
 fun calculatePercentage(noOfCorrectAnswer: Int, noOfQuestion: Int): Double {
-    require(noOfCorrectAnswer >= 0 && noOfQuestion > 0) {"Invalid Input: noOfCorrectAnswer must be non-negative and noOfQuestion must be positive"}
+    require(noOfCorrectAnswer >= 0 && noOfQuestion > 0) { "Invalid Input: noOfCorrectAnswer must be non-negative and noOfQuestion must be positive" }
     val percentage = (noOfCorrectAnswer.toDouble() / noOfQuestion.toDouble()) * 100
     return DecimalFormat("#.##").format(percentage).toDouble()
 }

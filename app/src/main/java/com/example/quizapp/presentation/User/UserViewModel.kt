@@ -2,6 +2,7 @@ package com.example.quizapp.presentation.User
 
 import androidx.lifecycle.ViewModel
 import com.example.quizapp.data.session.QuizSessionManager
+import com.example.quizapp.domain.local.SessionManager
 import com.example.quizapp.domain.local.model.UserSession
 import com.example.quizapp.presentation.quiz.dc_StateQuizScreen
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -10,7 +11,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class UserViewModel @Inject constructor(
-    private val quizSessionManager: QuizSessionManager
+    private val sessionManager: SessionManager
 ):  ViewModel(){
 
     private val _userState = MutableStateFlow(DCStateUser())
@@ -30,7 +31,7 @@ class UserViewModel @Inject constructor(
                 _userState.value = userState.value.copy(occupation = event.occupation)
             }
             is EventUserScreen.SaveUserInfo -> {
-                quizSessionManager.updateSession {
+                sessionManager.updateSession {
                     copy(
                         userName = userState.value.userName,
                         occupation = userState.value.occupation,
@@ -41,6 +42,4 @@ class UserViewModel @Inject constructor(
             }
         }
     }
-
-
 }
