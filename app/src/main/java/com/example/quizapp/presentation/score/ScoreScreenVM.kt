@@ -3,7 +3,6 @@ package com.example.quizapp.presentation.score
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.quizapp.data.session.QuizSessionManager
 import com.example.quizapp.domain.local.SessionManager
 import com.example.quizapp.domain.local.model.UserSession
 import com.example.quizapp.domain.usecases.DBSaveUserUseCase
