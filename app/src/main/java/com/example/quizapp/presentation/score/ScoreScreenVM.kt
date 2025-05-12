@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.quizapp.domain.local.SessionManager
 import com.example.quizapp.domain.local.model.UserSession
+import com.example.quizapp.domain.usecases.DBGetUseCases
 import com.example.quizapp.domain.usecases.DBSaveUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +17,8 @@ import javax.inject.Inject
 @HiltViewModel
 class ScoreScreenVM @Inject constructor(
     private val sessionManager: SessionManager,
-    private val dbSaveUserUseCase: DBSaveUserUseCase
+    private val dbSaveUserUseCase: DBSaveUserUseCase,
+    /*private val dbGetUseCases: DBGetUseCases*/
 ) : ViewModel() {
 
     private val _scoreScreenData = MutableStateFlow(dc_ScoreScreen())
@@ -38,23 +40,34 @@ class ScoreScreenVM @Inject constructor(
                 _scoreScreenData.value = scoreScreenData.value.copy(scorePercentage = event.scorePercentage)
             }
             is SC_EventScoreScreen.SaveScore -> {
-                sessionManager.updateSession {
-                    copy(
-                        noOfCorrectAnswer = scoreScreenData.value.noOfCorrectAnswer,
-                        noOfQuestion = scoreScreenData.value.noOfQuestion,
-                        scorePercentage = scoreScreenData.value.scorePercentage
-                    )
-                }
-                saveUser(sessionManager.session)
-                Log.d("ScoreScreenVM", "Score saved: ${sessionManager.session}")
+
+                val updatedSession = sessionManager.session.copy(
+                    noOfCorrectAnswer = scoreScreenData.value.noOfCorrectAnswer,
+                    noOfQuestion = scoreScreenData.value.noOfQuestion,
+                    scorePercentage = scoreScreenData.value.scorePercentage
+                )
+
+                sessionManager.updateSession { updatedSession }
+
+                saveUser(updatedSession)
+
+
             }
         }
     }
 
     private fun saveUser(session: UserSession) {
         viewModelScope.launch(Dispatchers.IO) {
+            Log.d("ScoreScreenVM", "Score saved: $session")
             val result = dbSaveUserUseCase(session)
             _saveResult.value = result
         }
     }
+
+    /*fun logAllUsers() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val users = dbGetUseCases()
+            Log.d("ScoreScreenVM", "All saved users: $users")
+        }
+    }*/
 }
