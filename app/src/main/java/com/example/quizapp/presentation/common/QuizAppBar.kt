@@ -16,7 +16,7 @@ import com.example.quizapp.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun QuizAppBar(
+fun  QuizAppBar(
     quizCategory: String,
     onBackClick : () -> Unit
 ) {

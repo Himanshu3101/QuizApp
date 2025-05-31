@@ -76,14 +76,6 @@ fun QuizScreen(
     navController: NavController
 ) {
 
-    BackHandler {
-        navController.navigate(Routes.HomeScreen.route){
-            popUpTo(Routes.HomeScreen.route){inclusive = true}
-        }
-    }
-
-
-
     LaunchedEffect(key1 = Unit) {
         val difficulty = when (quizDifficulty) {
             "Medium" -> "medium"
@@ -104,6 +96,12 @@ fun QuizScreen(
                 type
             )
         )
+    }
+
+    BackHandler {
+        navController.navigate(Routes.HomeScreen.route){
+            popUpTo(Routes.HomeScreen.route){inclusive = true}
+        }
     }
 
     Column(
